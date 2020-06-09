@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
 * Студент: [Yaroslav Lazovsky](https://up.htmlacademy.ru/react/4/user/995693).
-* Наставник: `Неизвестно`.
+* Наставник: [Владислав Пономарев](https://htmlacademy.ru/profile/id1366303).
 
 ---
 
