@@ -7,7 +7,6 @@ module.exports = {
     path: path.join(__dirname, `public`)
   },
   devServer: {
-    // eslint-disable-next-line no-undef
     contentBase: path.join(__dirname, `public`),
     open: true,
     inline: false,
