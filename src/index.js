@@ -34,7 +34,7 @@ ReactDOM.render(
       promoTitle={promoInfo.title}
       promoGenre={promoInfo.genre}
       promoYear={promoInfo.year}
-      movieTitles ={MOVIE_TITLES}
+      movieTitles={MOVIE_TITLES}
     />,
     document.querySelector(`#root`)
 );

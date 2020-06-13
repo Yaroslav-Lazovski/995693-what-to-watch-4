@@ -10,7 +10,7 @@ const App = (props) => {
       promoTitle={promoTitle}
       promoGenre={promoGenre}
       promoYear={promoYear}
-      movieTitles ={movieTitles}
+      movieTitles={movieTitles}
     />
   );
 };

@@ -132,7 +132,7 @@ Main.propTypes = {
   promoGenre: PropTypes.string.isRequired,
   promoYear: PropTypes.number.isRequired,
   movieTitles: PropTypes.arrayOf(
-      PropTypes.string.isRequired
+      PropTypes.string
   ).isRequired,
 };
 
