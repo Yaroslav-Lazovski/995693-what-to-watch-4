@@ -32,6 +32,7 @@ describe(`Main Component`, () => {
         promoGenre={`Drama`}
         promoYear={2014}
         movieTitles={MOVIE_TITLES}
+        onTitleClick={() => {}}
       />)
       .toJSON();
 
