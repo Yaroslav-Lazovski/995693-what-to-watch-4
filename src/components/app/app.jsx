@@ -1,27 +1,27 @@
 import React from "react";
 import Main from "../main/main.jsx";
-import PropTypes from "prop-types";
 
-const App = (props) => {
-  const {promoTitle, promoGenre, promoYear, movieTitles} = props;
+import {MOVIE_TITLES} from "../../consts.js";
+
+
+const promoInfo = {
+  title: `The Grand Budapest Hotel`,
+  genre: `Drama`,
+  year: 2014,
+};
+
+const App = () => {
 
   return (
     <Main
-      promoTitle={promoTitle}
-      promoGenre={promoGenre}
-      promoYear={promoYear}
-      movieTitles={movieTitles}
+      promoTitle={promoInfo.title}
+      promoGenre={promoInfo.genre}
+      promoYear={promoInfo.year}
+      movieTitles={MOVIE_TITLES}
+      onTitleClick={() => {}}
     />
   );
 };
 
-App.propTypes = {
-  promoTitle: PropTypes.string.isRequired,
-  promoGenre: PropTypes.string.isRequired,
-  promoYear: PropTypes.number.isRequired,
-  movieTitles: PropTypes.arrayOf(
-      PropTypes.string
-  ).isRequired,
-};
 
 export default App;

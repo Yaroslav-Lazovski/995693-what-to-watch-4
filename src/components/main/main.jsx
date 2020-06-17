@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 
 const Main = (props) => {
-  const {promoTitle, promoGenre, promoYear, movieTitles} = props;
+  const {promoTitle, promoGenre, promoYear, movieTitles, onTitleClick} = props;
 
   return <React.Fragment>
     <section className="movie-card">
@@ -44,9 +44,15 @@ const Main = (props) => {
 
             <div className="movie-card__buttons">
               <button className="btn btn--play movie-card__button" type="button">
+                <svg viewBox="0 0 19 19" width="19" height="19">
+                  <use xlinkHref="#play-s"></use>
+                </svg>
                 <span>Play</span>
               </button>
               <button className="btn btn--list movie-card__button" type="button">
+                <svg viewBox="0 0 19 20" width="19" height="20">
+                  <use xlinkHref="#add"></use>
+                </svg>
                 <span>My list</span>
               </button>
             </div>
@@ -98,7 +104,10 @@ const Main = (props) => {
               <div className="small-movie-card__image">
                 <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt={title} width="280" height="175" />
               </div>
-              <h3 className="small-movie-card__title">
+              <h3
+                className="small-movie-card__title"
+                onClick ={onTitleClick}
+              >
                 <a className="small-movie-card__link" href="movie-page.html">{title}</a>
               </h3>
             </article>
@@ -134,6 +143,7 @@ Main.propTypes = {
   movieTitles: PropTypes.arrayOf(
       PropTypes.string
   ).isRequired,
+  onTitleClick: PropTypes.func.isRequired
 };
 
 export default Main;
