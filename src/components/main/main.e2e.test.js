@@ -1,9 +1,9 @@
 import React from "react";
-import Enzyme, {shallow} from "enzyme";
+import Enzyme, {mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Main from "./main.jsx";
 
-import {MOVIE_TITLES} from "../../consts.js";
+import films from "../../mocks/films.js";
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -13,12 +13,12 @@ describe(`Main e2e tests`, () => {
   it(`Should film title be clicked`, () => {
     const onTitleClick = jest.fn();
 
-    const mainComponent = shallow(
+    const mainComponent = mount(
         <Main
           promoTitle={`The Grand Budapest Hotel`}
           promoGenre={`Drama`}
           promoYear={2014}
-          movieTitles={MOVIE_TITLES}
+          movies={films}
           onTitleClick={onTitleClick}
         />
     );
