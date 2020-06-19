@@ -10,10 +10,10 @@ class MoviesList extends PureComponent {
       activeMovie: null
     };
 
-    this._onMovieCardMouseEnter = this._onMovieCardMouseEnter.bind(this);
+    this.handleMovieCardMouseEnter = this.handleMovieCardMouseEnter.bind(this);
   }
 
-  _onMovieCardMouseEnter(movieTitle) {
+  handleMovieCardMouseEnter(movieTitle) {
     this.setState({
       activeMovie: movieTitle
     });
@@ -30,7 +30,7 @@ class MoviesList extends PureComponent {
               key={movie + index}
               movie={movie}
               onTitleClick={onTitleClick}
-              onMouseEnter={this._onMovieCardMouseEnter}
+              onMouseEnter={this.handleMovieCardMouseEnter}
             />
           );
         })}

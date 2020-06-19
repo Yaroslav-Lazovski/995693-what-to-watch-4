@@ -2,7 +2,6 @@ import React from "react";
 import renderer from "react-test-renderer";
 import MoviesList from "./movies-list.jsx";
 
-// import {movieInfo} from "../../mocks/movie-info.js";
 import films from "../../mocks/films.js";
 
 
