@@ -3,17 +3,12 @@ import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
 import SmallMovieCard from "./small-movie-card.jsx";
-// import {movieInfo} from "../../mocks/movie-info.js";
+import {movieInfo} from "../../mocks/movie-info.js";
 
 
 Enzyme.configure({
   adapter: new Adapter(),
 });
-
-const movieInfo = {
-  title: `Oblivion`,
-  poster: `img/oblivion.jpg`
-};
 
 
 describe(`SmallMovieCard e2e tests`, () => {

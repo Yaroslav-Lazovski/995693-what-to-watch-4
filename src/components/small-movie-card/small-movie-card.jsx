@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const SmallMovieCard = (props) => {
   const {movie, onTitleClick, onMouseEnter} = props;

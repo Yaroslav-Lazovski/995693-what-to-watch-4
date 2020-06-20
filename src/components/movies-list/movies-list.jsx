@@ -1,6 +1,6 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import SmallMovieCard from '../small-movie-card/small-movie-card.jsx';
+import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
+import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 
 class MoviesList extends PureComponent {
   constructor(props) {
@@ -13,9 +13,9 @@ class MoviesList extends PureComponent {
     this.handleMovieCardMouseEnter = this.handleMovieCardMouseEnter.bind(this);
   }
 
-  handleMovieCardMouseEnter(movieTitle) {
+  handleMovieCardMouseEnter(movie) {
     this.setState({
-      activeMovie: movieTitle
+      activeMovie: movie
     });
   }
 
@@ -24,16 +24,14 @@ class MoviesList extends PureComponent {
 
     return (
       <div className="catalog__movies-list">
-        {movies.map((movie, index) => {
-          return (
-            <SmallMovieCard
-              key={movie + index}
-              movie={movie}
-              onTitleClick={onTitleClick}
-              onMouseEnter={this.handleMovieCardMouseEnter}
-            />
-          );
-        })}
+        {movies.map((movie, index) => (
+          <SmallMovieCard
+            key={movie + index}
+            movie={movie}
+            onTitleClick={onTitleClick}
+            onMouseEnter={this.handleMovieCardMouseEnter}
+          />
+        ))}
       </div>
     );
   }
