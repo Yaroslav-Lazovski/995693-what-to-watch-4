@@ -3,7 +3,7 @@ import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Main from "./main.jsx";
 
-import {MOVIE_TITLES} from "../../consts.js";
+import films from "../../mocks/films.js";
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -18,14 +18,15 @@ describe(`Main e2e tests`, () => {
           promoTitle={`The Grand Budapest Hotel`}
           promoGenre={`Drama`}
           promoYear={2014}
-          movieTitles={MOVIE_TITLES}
+          movies={films}
           onTitleClick={onTitleClick}
         />
     );
 
-    const movieTitles = mainComponent.find(`.small-movie-card__title`);
 
-    movieTitles.first().simulate(`click`);
+    const movieTitle = mainComponent.find(`MoviesList`).dive().find(`SmallMovieCard`).first().dive().find(`.small-movie-card__title`);
+
+    movieTitle.simulate(`click`);
 
     expect(onTitleClick.mock.calls.length).toBe(1);
   });

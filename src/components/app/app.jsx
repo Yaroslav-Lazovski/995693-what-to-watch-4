@@ -1,7 +1,7 @@
 import React from "react";
 import Main from "../main/main.jsx";
 
-import {MOVIE_TITLES} from "../../consts.js";
+import films from "../../mocks/films.js";
 
 
 const promoInfo = {
@@ -17,7 +17,7 @@ const App = () => {
       promoTitle={promoInfo.title}
       promoGenre={promoInfo.genre}
       promoYear={promoInfo.year}
-      movieTitles={MOVIE_TITLES}
+      movies={films}
       onTitleClick={() => {}}
     />
   );
