@@ -19,6 +19,7 @@ describe(`SmallMovieCard e2e tests`, () => {
         <SmallMovieCard
           movie={movieInfo}
           onTitleClick={() => {}}
+          onPosterClick={() => {}}
           onMouseEnter={onMouseEnter}
         />
     );

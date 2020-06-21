@@ -11,6 +11,7 @@ describe(`MoviesList Snapshot`, () => {
       .create(<MoviesList
         movies={films}
         onTitleClick={() => {}}
+        onPosterClick={() => {}}
       />)
       .toJSON();
 

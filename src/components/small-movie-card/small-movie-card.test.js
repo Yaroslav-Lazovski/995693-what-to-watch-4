@@ -11,6 +11,7 @@ describe(`SmallMovieCard Snapshot`, () => {
       .create(<SmallMovieCard
         movie={movieInfo}
         onTitleClick={() => {}}
+        onPosterClick={() => {}}
         onMouseEnter={() => {}}
       />)
       .toJSON();

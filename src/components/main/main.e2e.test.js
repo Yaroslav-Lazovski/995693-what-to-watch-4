@@ -12,6 +12,7 @@ Enzyme.configure({
 describe(`Main e2e tests`, () => {
   it(`Should film title be clicked`, () => {
     const onTitleClick = jest.fn();
+    const onPosterClick = jest.fn();
 
     const mainComponent = shallow(
         <Main
@@ -20,13 +21,16 @@ describe(`Main e2e tests`, () => {
           promoYear={2014}
           movies={films}
           onTitleClick={onTitleClick}
+          onPosterClick={onPosterClick}
         />
     );
 
 
     const movieTitle = mainComponent.find(`MoviesList`).dive().find(`SmallMovieCard`).first().dive().find(`.small-movie-card__title`);
+    const moviePoster = mainComponent.find(`MoviesList`).dive().find(`SmallMovieCard`).first().dive().find(`.small-movie-card`);
 
     movieTitle.simulate(`click`);
+    moviePoster.simulate(`click`);
 
     expect(onTitleClick.mock.calls.length).toBe(1);
   });
