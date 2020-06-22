@@ -33,5 +33,6 @@ describe(`Main e2e tests`, () => {
     moviePoster.simulate(`click`);
 
     expect(onTitleClick.mock.calls.length).toBe(1);
+    expect(onPosterClick.mock.calls.length).toBe(1);
   });
 });
