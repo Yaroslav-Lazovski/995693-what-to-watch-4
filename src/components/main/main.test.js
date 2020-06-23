@@ -14,6 +14,7 @@ describe(`Main Snapshot`, () => {
         promoYear={2014}
         movies={films}
         onTitleClick={() => {}}
+        onPosterClick={() => {}}
       />)
       .toJSON();
 
