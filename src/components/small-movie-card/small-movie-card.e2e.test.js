@@ -21,6 +21,7 @@ describe(`SmallMovieCard e2e tests`, () => {
           onTitleClick={() => {}}
           onPosterClick={() => {}}
           onMouseEnter={onMouseEnter}
+          onMouseLeave={() => {}}
         />
     );
 
@@ -29,5 +30,25 @@ describe(`SmallMovieCard e2e tests`, () => {
     smallMovieCard.simulate(`mouseenter`, movieInfo);
 
     expect(onMouseEnter.mock.calls[0][0]).toMatchObject(movieInfo);
+  });
+
+  it(`Should movie card mouse leave`, () => {
+    const onMouseLeave = jest.fn();
+
+    const movieCardComponent = shallow(
+        <SmallMovieCard
+          movie={movieInfo}
+          onTitleClick={() => {}}
+          onPosterClick={() => {}}
+          onMouseEnter={() => {}}
+          onMouseLeave={onMouseLeave}
+        />
+    );
+
+    const smallMovieCard = movieCardComponent.find(`.small-movie-card`);
+
+    smallMovieCard.simulate(`mouseleave`);
+
+    expect(onMouseLeave.mock.calls.length).toBe(1);
   });
 });

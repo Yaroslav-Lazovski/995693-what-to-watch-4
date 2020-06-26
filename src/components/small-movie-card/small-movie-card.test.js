@@ -13,8 +13,12 @@ describe(`SmallMovieCard Snapshot`, () => {
         onTitleClick={() => {}}
         onPosterClick={() => {}}
         onMouseEnter={() => {}}
-      />)
-      .toJSON();
+        onMouseLeave={() => {}}
+      />, {
+        createNodeMock: () => {
+          return {};
+        }
+      }).toJSON();
 
     expect(tree).toMatchSnapshot();
   });

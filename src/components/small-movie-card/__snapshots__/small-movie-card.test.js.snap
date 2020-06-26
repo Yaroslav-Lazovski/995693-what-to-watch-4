@@ -5,10 +5,17 @@ exports[`SmallMovieCard Snapshot Should small movie card render correctly 1`] = 
   className="small-movie-card catalog__movies-card"
   onClick={[Function]}
   onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
 >
   <div
     className="small-movie-card__image"
   >
+    <video
+      className="player__video"
+      muted={true}
+      poster="img/oblivion.jpg"
+      src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+    />
     <img
       alt="Oblivion"
       height="175"
