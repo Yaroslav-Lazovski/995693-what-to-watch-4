@@ -11,11 +11,18 @@ class MoviesList extends PureComponent {
     };
 
     this._handleMovieCardMouseEnter = this._handleMovieCardMouseEnter.bind(this);
+    this._handleMovieCardMouseLeave = this._handleMovieCardMouseLeave.bind(this);
   }
 
   _handleMovieCardMouseEnter(movie) {
     this.setState({
       activeCard: movie
+    });
+  }
+
+  _handleMovieCardMouseLeave() {
+    this.setState({
+      activeCard: null
     });
   }
 
@@ -31,6 +38,7 @@ class MoviesList extends PureComponent {
             onTitleClick={onTitleClick}
             onPosterClick={onPosterClick}
             onMouseEnter={this._handleMovieCardMouseEnter}
+            onMouseLeave={this._handleMovieCardMouseLeave}
           />
         ))}
       </div>

@@ -21,6 +21,8 @@ class App extends PureComponent {
     this.state = {
       activeMovie: null
     };
+
+    this._handleMovieTitleClick = this._handleMovieTitleClick.bind(this);
   }
 
   _handleMovieTitleClick(movie) {
