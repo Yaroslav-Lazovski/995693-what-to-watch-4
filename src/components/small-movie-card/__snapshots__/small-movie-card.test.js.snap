@@ -12,7 +12,6 @@ exports[`SmallMovieCard Snapshot Should small movie card render correctly 1`] = 
   >
     <video
       className="player__video"
-      muted={true}
       poster="img/oblivion.jpg"
       src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
     />
@@ -25,11 +24,11 @@ exports[`SmallMovieCard Snapshot Should small movie card render correctly 1`] = 
   </div>
   <h3
     className="small-movie-card__title"
-    onClick={[Function]}
   >
     <a
       className="small-movie-card__link"
       href="movie-page.html"
+      onClick={[Function]}
     >
       Oblivion
     </a>

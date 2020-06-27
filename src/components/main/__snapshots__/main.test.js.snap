@@ -268,7 +268,6 @@ Array [
           >
             <video
               className="player__video"
-              muted={true}
               poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
             />
@@ -281,11 +280,11 @@ Array [
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
               href="movie-page.html"
+              onClick={[Function]}
             >
               Fantastic Beasts: The Crimes of Grindelwald
             </a>
@@ -302,7 +301,6 @@ Array [
           >
             <video
               className="player__video"
-              muted={true}
               poster="img/bohemian-rhapsody.jpg"
               src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
             />
@@ -315,11 +313,11 @@ Array [
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
               href="movie-page.html"
+              onClick={[Function]}
             >
               Bohemian Rhapsody
             </a>
@@ -336,7 +334,6 @@ Array [
           >
             <video
               className="player__video"
-              muted={true}
               poster="img/macbeth.jpg"
               src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
             />
@@ -349,11 +346,11 @@ Array [
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
               href="movie-page.html"
+              onClick={[Function]}
             >
               Macbeth
             </a>
@@ -370,7 +367,6 @@ Array [
           >
             <video
               className="player__video"
-              muted={true}
               poster="img/aviator.jpg"
               src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
             />
@@ -383,11 +379,11 @@ Array [
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
               href="movie-page.html"
+              onClick={[Function]}
             >
               Aviator
             </a>
@@ -404,7 +400,6 @@ Array [
           >
             <video
               className="player__video"
-              muted={true}
               poster="img/we-need-to-talk-about-kevin.jpg"
               src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
             />
@@ -417,11 +412,11 @@ Array [
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
               href="movie-page.html"
+              onClick={[Function]}
             >
               We need to talk about Kevin
             </a>
@@ -438,7 +433,6 @@ Array [
           >
             <video
               className="player__video"
-              muted={true}
               poster="img/what-we-do-in-the-shadows.jpg"
               src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
             />
@@ -451,11 +445,11 @@ Array [
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
               href="movie-page.html"
+              onClick={[Function]}
             >
               What We Do in the Shadows
             </a>
@@ -472,7 +466,6 @@ Array [
           >
             <video
               className="player__video"
-              muted={true}
               poster="img/revenant.jpg"
               src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
             />
@@ -485,11 +478,11 @@ Array [
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
               href="movie-page.html"
+              onClick={[Function]}
             >
               Revenant
             </a>
@@ -506,7 +499,6 @@ Array [
           >
             <video
               className="player__video"
-              muted={true}
               poster="img/johnny-english.jpg"
               src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
             />
@@ -519,11 +511,11 @@ Array [
           </div>
           <h3
             className="small-movie-card__title"
-            onClick={[Function]}
           >
             <a
               className="small-movie-card__link"
               href="movie-page.html"
+              onClick={[Function]}
             >
               Johnny English
             </a>

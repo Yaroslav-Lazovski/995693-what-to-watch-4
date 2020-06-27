@@ -6,16 +6,20 @@ class VideoPlayer extends PureComponent {
     super(props);
 
     this._videoRef = createRef();
+
+    this.state = {
+      isPlaying: this.props.isPlaying
+    };
   }
 
   componentDidMount() {
-    const {src, poster, muted} = this.props;
+    const {src, poster} = this.props;
     const video = this._videoRef.current;
 
     if (video) {
       video.src = src;
       video.poster = poster;
-      video.muted = muted;
+      video.muted = true;
     }
   }
 
@@ -43,12 +47,11 @@ class VideoPlayer extends PureComponent {
   }
 
   render() {
-    const {src, poster, muted} = this.props;
+    const {src, poster} = this.props;
 
     return <video
-      className={`player__video`}
+      className="player__video"
       ref={this._videoRef}
-      muted={muted}
       src={src}
       poster={poster}
     />;
@@ -59,7 +62,6 @@ VideoPlayer.propTypes = {
   isPlaying: PropTypes.bool.isRequired,
   src: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
-  muted: PropTypes.bool.isRequired,
 };
 
 export default VideoPlayer;

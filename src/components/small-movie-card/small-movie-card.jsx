@@ -16,7 +16,7 @@ class SmallMovieCard extends PureComponent {
     this._handleTitleClick = this._handleTitleClick.bind(this);
     this._handlePosterClick = this._handlePosterClick.bind(this);
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
-    this._handleMouseLeave = this._handleMouseEnter.bind(this);
+    this._handleMouseLeave = this._handleMouseLeave.bind(this);
   }
 
 
@@ -55,8 +55,6 @@ class SmallMovieCard extends PureComponent {
       this.setState({
         isPlaying: false
       });
-
-      this._videoDelay = null;
     }
 
     onMouseLeave();
@@ -80,15 +78,19 @@ class SmallMovieCard extends PureComponent {
             isPlaying={isPlaying}
             src={preview}
             poster={poster}
-            muted={true}
           />
           <img src={poster} alt={title} width="280" height="175" />
         </div>
         <h3
           className="small-movie-card__title"
-          onClick={this._handleTitleClick}
         >
-          <a className="small-movie-card__link" href="movie-page.html">{title}</a>
+          <a
+            className="small-movie-card__link"
+            href="movie-page.html"
+            onClick={this._handleTitleClick}
+          >
+            {title}
+          </a>
         </h3>
       </article>
     );
