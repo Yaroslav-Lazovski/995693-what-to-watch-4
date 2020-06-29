@@ -5,6 +5,7 @@ import MoviePage from "../movie-page/movie-page.jsx";
 
 import films from "../../mocks/films.js";
 import movieOverview from "../../mocks/movie.js";
+import reviews from "../../mocks/reviews.js";
 
 
 const promoInfo = {
@@ -61,6 +62,7 @@ class App extends PureComponent {
         movieDirector={movieDirector}
         movieStarring={movieStarring}
         movies={films}
+        reviews={reviews}
         onTitleClick={this._handleMovieTitleClick}
         onPosterClick={this._handleMovieTitleClick}
       />

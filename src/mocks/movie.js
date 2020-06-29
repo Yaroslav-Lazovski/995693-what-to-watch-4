@@ -3,6 +3,7 @@ export default {
   movieTitle: `The Grand Budapest Hotel`,
   movieGenre: `Drama`,
   movieYear: 2014,
+  movieRunTime: `1h 39m`,
   moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
   movieRatingScore: 8.9,
   movieRatingCount: 240,
