@@ -45,7 +45,7 @@ class App extends PureComponent {
   }
 
   _renderMoviePage() {
-    const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore, movieRatingLevel,
+    const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore,
       movieRatingCount, movieDescription, movieDirector, movieStarring} = movieOverview;
 
     return (
@@ -56,13 +56,25 @@ class App extends PureComponent {
         movieYear={movieYear}
         moviePoster={moviePoster}
         movieRatingScore={movieRatingScore}
-        movieRatingLevel={movieRatingLevel}
         movieRatingCount={movieRatingCount}
         movieDescription={movieDescription}
         movieDirector={movieDirector}
         movieStarring={movieStarring}
+        movies={films}
+        onTitleClick={this._handleMovieTitleClick}
+        onPosterClick={this._handleMovieTitleClick}
       />
     );
+  }
+
+  _renderApp() {
+    const {activeMovie} = this.state;
+
+    if (activeMovie) {
+      return this._renderMoviePage();
+    }
+
+    return this._renderMain();
   }
 
 
@@ -71,7 +83,7 @@ class App extends PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this._renderMain()}
+            {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
             {this._renderMoviePage()}
