@@ -1,7 +1,9 @@
 import React, {PureComponent} from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import withTabs from "../../hocs/with-tabs.js";
 
 import films from "../../mocks/films.js";
 import movieOverview from "../../mocks/movie.js";
@@ -13,6 +15,8 @@ const promoInfo = {
   genre: `Drama`,
   year: 2014,
 };
+
+const MoviePageWrapped = withTabs(MoviePage);
 
 
 class App extends PureComponent {
@@ -47,10 +51,10 @@ class App extends PureComponent {
 
   _renderMoviePage() {
     const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore,
-      movieRatingCount, movieDescription, movieDirector, movieStarring} = movieOverview;
+      movieRatingCount, movieDescription, movieDirector, movieStarring, movieRunTime} = movieOverview;
 
     return (
-      <MoviePage
+      <MoviePageWrapped
         movieBackground={movieBackground}
         movieTitle={movieTitle}
         movieGenre={movieGenre}
@@ -61,6 +65,7 @@ class App extends PureComponent {
         movieDescription={movieDescription}
         movieDirector={movieDirector}
         movieStarring={movieStarring}
+        movieRunTime={movieRunTime}
         movies={films}
         reviews={reviews}
         onTitleClick={this._handleMovieTitleClick}

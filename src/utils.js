@@ -1,5 +1,7 @@
 import {MovieRating, RatingType} from "../src/consts.js";
 
+const MAX_SIMILAR_MOVIES = 4;
+
 export const formatRating = (rating) => rating.toString().replace(`.`, `,`);
 
 export const getRatingLevel = (rating) => {
@@ -18,4 +20,8 @@ export const getRatingLevel = (rating) => {
   }
 
   return textRating;
+};
+
+export const getSimilarMovies = (movies, genre) => {
+  return movies.filter((movie) => movie.genre === genre).slice(0, MAX_SIMILAR_MOVIES);
 };

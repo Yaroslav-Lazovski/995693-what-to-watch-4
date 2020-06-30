@@ -34,3 +34,9 @@ export const RatingType = {
   VERY_GOOD: `Very good`,
   AWESOME: `Awesome`,
 };
+
+export const TabType = {
+  OVERVIEW: `Overview`,
+  DETAILS: `Details`,
+  REVIEWS: `Reviews`
+};

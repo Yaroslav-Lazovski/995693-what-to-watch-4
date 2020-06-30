@@ -19,9 +19,9 @@ const MovieOverview = (props) => {
       <div className="movie-card__text">
         <p>{movieDescription}</p>
 
-        <p className="movie-card__director"><strong>{movieDirector}</strong></p>
+        <p className="movie-card__director"><strong>Director: {movieDirector}</strong></p>
 
-        <p className="movie-card__starring"><strong>{movieStarring} and other</strong></p>
+        <p className="movie-card__starring"><strong>Starring: {movieStarring} and other</strong></p>
       </div>
     </React.Fragment>
   );

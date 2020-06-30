@@ -2,13 +2,49 @@ import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 
 import MoviesList from "../movies-list/movies-list.jsx";
-import Tabs from "../tabs/tabs.jsx";
-import {formatRating, getRatingLevel} from "../../utils.js";
+import MovieOverview from "../movie-overview/movie-overview.jsx";
+import MovieDetails from "../movie-details/movie-details.jsx";
+import MovieReviews from "../movie-reviews/movie-reviews.jsx";
+
+import {TabType} from "../../consts.js";
+import {getSimilarMovies} from "../../utils.js";
 
 
 const MoviePage = (props) => {
   const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore,
-    movieRatingCount, movieDescription, movieDirector, movieStarring, movies, onTitleClick, onPosterClick} = props;
+    movieRatingCount, movieDescription, movieDirector, movieStarring, movieRunTime, movies, reviews, renderTabs, activeTab, onTitleClick, onPosterClick} = props;
+
+  const similarMovies = getSimilarMovies(movies, movieGenre);
+
+  const renderActiveTab = () => {
+    switch (activeTab) {
+      case TabType.OVERVIEW:
+        return <MovieOverview
+          movieRatingScore={movieRatingScore}
+          movieRatingCount={movieRatingCount}
+          movieDescription={movieDescription}
+          movieDirector={movieDirector}
+          movieStarring={movieStarring}
+        />;
+
+      case TabType.DETAILS:
+        return <MovieDetails
+          movieDirector={movieDirector}
+          movieStarring={movieStarring}
+          movieGenre={movieGenre}
+          movieYear={movieYear}
+          movieRunTime={movieRunTime}
+        />;
+
+      case TabType.REVIEWS:
+        return <MovieReviews
+          reviews={reviews}
+        />;
+
+      default:
+        return null;
+    }
+  };
 
   return (
     <Fragment>
@@ -70,23 +106,8 @@ const MoviePage = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <Tabs />
-
-              <div className="movie-rating">
-                <div className="movie-rating__score">{formatRating(movieRatingScore)}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{getRatingLevel(movieRatingScore)}</span>
-                  <span className="movie-rating__count">{movieRatingCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="movie-card__text">
-                <p>{movieDescription}</p>
-
-                <p className="movie-card__director"><strong>{movieDirector}</strong></p>
-
-                <p className="movie-card__starring"><strong>{movieStarring} and other</strong></p>
-              </div>
+              {renderTabs()}
+              {renderActiveTab()}
             </div>
           </div>
         </div>
@@ -96,7 +117,7 @@ const MoviePage = (props) => {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <MoviesList
-            movies={movies}
+            movies={similarMovies}
             onTitleClick={onTitleClick}
             onPosterClick={onPosterClick}
           />
@@ -132,14 +153,26 @@ MoviePage.propTypes = {
   movieDescription: PropTypes.string.isRequired,
   movieDirector: PropTypes.string.isRequired,
   movieStarring: PropTypes.string.isRequired,
+  movieRunTime: PropTypes.string.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         title: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired
       })
   ).isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
   onTitleClick: PropTypes.func.isRequired,
   onPosterClick: PropTypes.func.isRequired,
+  renderTabs: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
 
 
