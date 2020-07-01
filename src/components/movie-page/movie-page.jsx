@@ -1,10 +1,50 @@
 import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 
+import MoviesList from "../movies-list/movies-list.jsx";
+import MovieOverview from "../movie-overview/movie-overview.jsx";
+import MovieDetails from "../movie-details/movie-details.jsx";
+import MovieReviews from "../movie-reviews/movie-reviews.jsx";
+
+import {TabType} from "../../consts.js";
+import {getSimilarMovies} from "../../utils.js";
+
 
 const MoviePage = (props) => {
-  const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore, movieRatingLevel,
-    movieRatingCount, movieDescription, movieDirector, movieStarring} = props;
+  const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore,
+    movieRatingCount, movieDescription, movieDirector, movieStarring, movieRunTime, movies, reviews, renderTabs, activeTab, onTitleClick, onPosterClick} = props;
+
+  const similarMovies = getSimilarMovies(movies, movieGenre);
+
+  const renderActiveTab = () => {
+    switch (activeTab) {
+      case TabType.OVERVIEW:
+        return <MovieOverview
+          movieRatingScore={movieRatingScore}
+          movieRatingCount={movieRatingCount}
+          movieDescription={movieDescription}
+          movieDirector={movieDirector}
+          movieStarring={movieStarring}
+        />;
+
+      case TabType.DETAILS:
+        return <MovieDetails
+          movieDirector={movieDirector}
+          movieStarring={movieStarring}
+          movieGenre={movieGenre}
+          movieYear={movieYear}
+          movieRunTime={movieRunTime}
+        />;
+
+      case TabType.REVIEWS:
+        return <MovieReviews
+          reviews={reviews}
+        />;
+
+      default:
+        return null;
+    }
+  };
 
   return (
     <Fragment>
@@ -66,35 +106,8 @@ const MoviePage = (props) => {
             </div>
 
             <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a href="#" className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a href="#" className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="movie-rating">
-                <div className="movie-rating__score">{movieRatingScore}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">{movieRatingLevel}</span>
-                  <span className="movie-rating__count">{movieRatingCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="movie-card__text">
-                <p>{movieDescription}</p>
-
-                <p className="movie-card__director"><strong>{movieDirector}</strong></p>
-
-                <p className="movie-card__starring"><strong>{movieStarring} and other</strong></p>
-              </div>
+              {renderTabs()}
+              {renderActiveTab()}
             </div>
           </div>
         </div>
@@ -103,44 +116,11 @@ const MoviePage = (props) => {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-
-          <div className="catalog__movies-list">
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
+          <MoviesList
+            movies={similarMovies}
+            onTitleClick={onTitleClick}
+            onPosterClick={onPosterClick}
+          />
         </section>
 
         <footer className="page-footer">
@@ -169,11 +149,31 @@ MoviePage.propTypes = {
   movieYear: PropTypes.number.isRequired,
   moviePoster: PropTypes.string.isRequired,
   movieRatingScore: PropTypes.number.isRequired,
-  movieRatingLevel: PropTypes.string.isRequired,
   movieRatingCount: PropTypes.number.isRequired,
   movieDescription: PropTypes.string.isRequired,
   movieDirector: PropTypes.string.isRequired,
   movieStarring: PropTypes.string.isRequired,
+  movieRunTime: PropTypes.string.isRequired,
+  movies: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        poster: PropTypes.string.isRequired
+      })
+  ).isRequired,
+  reviews: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired,
+      }).isRequired
+  ).isRequired,
+  onTitleClick: PropTypes.func.isRequired,
+  onPosterClick: PropTypes.func.isRequired,
+  renderTabs: PropTypes.func.isRequired,
+  activeTab: PropTypes.string.isRequired,
 };
 
 

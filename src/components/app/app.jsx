@@ -1,10 +1,13 @@
 import React, {PureComponent} from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import withTabs from "../../hocs/with-tabs.js";
 
 import films from "../../mocks/films.js";
 import movieOverview from "../../mocks/movie.js";
+import reviews from "../../mocks/reviews.js";
 
 
 const promoInfo = {
@@ -12,6 +15,8 @@ const promoInfo = {
   genre: `Drama`,
   year: 2014,
 };
+
+const MoviePageWrapped = withTabs(MoviePage);
 
 
 class App extends PureComponent {
@@ -25,9 +30,9 @@ class App extends PureComponent {
     this._handleMovieTitleClick = this._handleMovieTitleClick.bind(this);
   }
 
-  _handleMovieTitleClick(movie) {
+  _handleMovieTitleClick(id) {
     this.setState({
-      activeMovie: movie
+      activeMovie: id
     });
   }
 
@@ -45,24 +50,38 @@ class App extends PureComponent {
   }
 
   _renderMoviePage() {
-    const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore, movieRatingLevel,
-      movieRatingCount, movieDescription, movieDirector, movieStarring} = movieOverview;
+    const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore,
+      movieRatingCount, movieDescription, movieDirector, movieStarring, movieRunTime} = movieOverview;
 
     return (
-      <MoviePage
+      <MoviePageWrapped
         movieBackground={movieBackground}
         movieTitle={movieTitle}
         movieGenre={movieGenre}
         movieYear={movieYear}
         moviePoster={moviePoster}
         movieRatingScore={movieRatingScore}
-        movieRatingLevel={movieRatingLevel}
         movieRatingCount={movieRatingCount}
         movieDescription={movieDescription}
         movieDirector={movieDirector}
         movieStarring={movieStarring}
+        movieRunTime={movieRunTime}
+        movies={films}
+        reviews={reviews}
+        onTitleClick={this._handleMovieTitleClick}
+        onPosterClick={this._handleMovieTitleClick}
       />
     );
+  }
+
+  _renderApp() {
+    const {activeMovie} = this.state;
+
+    if (activeMovie) {
+      return this._renderMoviePage();
+    }
+
+    return this._renderMain();
   }
 
 
@@ -71,7 +90,7 @@ class App extends PureComponent {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {this._renderMain()}
+            {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
             {this._renderMoviePage()}

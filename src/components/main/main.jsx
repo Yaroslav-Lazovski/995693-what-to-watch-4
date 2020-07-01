@@ -133,6 +133,7 @@ Main.propTypes = {
   promoYear: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
       }).isRequired

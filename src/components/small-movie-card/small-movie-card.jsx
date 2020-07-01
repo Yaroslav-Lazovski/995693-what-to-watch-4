@@ -20,30 +20,34 @@ class SmallMovieCard extends PureComponent {
   }
 
 
+  componentWillUnmount() {
+    clearTimeout(this._videoDelay);
+  }
+
   _handleTitleClick(evt) {
-    const {movie, onTitleClick} = this.props;
+    const {movie: id, onTitleClick} = this.props;
 
     evt.preventDefault();
-    onTitleClick(movie);
+    onTitleClick(id);
   }
 
   _handlePosterClick(evt) {
-    const {movie, onPosterClick} = this.props;
+    const {movie: id, onPosterClick} = this.props;
 
     evt.preventDefault();
-    onPosterClick(movie);
+    onPosterClick(id);
   }
 
 
   _handleMouseEnter() {
-    const {movie, onMouseEnter} = this.props;
+    const {movie: id, onMouseEnter} = this.props;
 
     this._videoDelay = setTimeout(() =>
       this.setState({
         isPlaying: true
       }), 1000);
 
-    onMouseEnter(movie);
+    onMouseEnter(id);
   }
 
   _handleMouseLeave() {
@@ -100,6 +104,7 @@ class SmallMovieCard extends PureComponent {
 
 SmallMovieCard.propTypes = {
   movie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired,
     preview: PropTypes.string.isRequired,
