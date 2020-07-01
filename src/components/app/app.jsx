@@ -30,9 +30,9 @@ class App extends PureComponent {
     this._handleMovieTitleClick = this._handleMovieTitleClick.bind(this);
   }
 
-  _handleMovieTitleClick(movie) {
+  _handleMovieTitleClick(id) {
     this.setState({
-      activeMovie: movie
+      activeMovie: id
     });
   }
 

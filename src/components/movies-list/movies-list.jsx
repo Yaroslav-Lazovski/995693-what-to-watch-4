@@ -14,9 +14,9 @@ class MoviesList extends PureComponent {
     this._handleMovieCardMouseLeave = this._handleMovieCardMouseLeave.bind(this);
   }
 
-  _handleMovieCardMouseEnter(movie) {
+  _handleMovieCardMouseEnter(id) {
     this.setState({
-      activeCard: movie
+      activeCard: id
     });
   }
 
@@ -50,6 +50,7 @@ class MoviesList extends PureComponent {
 MoviesList.propTypes = {
   movies: PropTypes.arrayOf(
       PropTypes.shape({
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         poster: PropTypes.string.isRequired,
       }).isRequired

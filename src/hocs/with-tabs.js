@@ -34,7 +34,7 @@ const withTabs = (Component) => {
     }
 
     render() {
-      const activeTab = this.state;
+      const {activeTab} = this.state;
 
       return (
         <Component
