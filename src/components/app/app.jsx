@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
@@ -102,4 +103,9 @@ class App extends PureComponent {
 }
 
 
-export default App;
+const mapStateToProps = (state) => ({
+  movies: state.movies
+});
+
+export {App};
+export default connect(mapStateToProps)(App);
