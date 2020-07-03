@@ -18,7 +18,7 @@ const ActionCreator = {
     type: ActionType.CHANGE_GENRE,
     payload: genre
   }),
-  filteredFilms: ()=>({
+  getMoviesByGenre: ()=>({
     type: ActionType.GET_MOVIES_BY_GENRE,
     payload: null
   })
@@ -43,9 +43,9 @@ const reducer = (state = initialState, action) => {
         genre: action.payload
       });
     case ActionType.GET_MOVIES_BY_GENRE:
-      const filteredFilms = getFilteredMovies(state.genre, initialState.films);
+      const filteredMovies = getFilteredMovies(state.genre, initialState.films);
       return extend(state, {
-        films: filteredFilms
+        movies: filteredMovies
       });
   }
   return state;
