@@ -25,3 +25,7 @@ export const getRatingLevel = (rating) => {
 export const getSimilarMovies = (movies, genre) => {
   return movies.filter((movie) => movie.genre === genre).slice(0, MAX_SIMILAR_MOVIES);
 };
+
+export const extend = (a, b) => {
+  return Object.assign({}, a, b);
+};
