@@ -23,7 +23,7 @@ exports[`Main Snapshot Should GenresList render correctly 1`] = `
       className="catalog__genres-link"
       href="#"
     >
-      Family
+      Kids & Family
     </a>
   </li>
   <li

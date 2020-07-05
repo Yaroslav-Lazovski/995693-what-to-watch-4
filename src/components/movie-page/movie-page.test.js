@@ -10,6 +10,7 @@ const movie = {
   genre: `Drama`,
   year: 2014,
   poster: `img/movie-poster.jpg`,
+  posterBig: `img/movie-poster-big.jpg`,
   ratingScore: 8.9,
   ratingCount: 240,
   description: `Movie description`,
@@ -47,6 +48,7 @@ describe(`MoviePage Snapshot`, () => {
         movieGenre={movie.genre}
         movieYear={movie.year}
         moviePoster={movie.poster}
+        moviePosterBig={movie.posterBig}
         movieRatingScore={movie.ratingScore}
         movieRatingCount={movie.ratingCount}
         movieDescription={movie.description}

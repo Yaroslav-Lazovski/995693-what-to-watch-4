@@ -41,7 +41,8 @@ class GenresList extends PureComponent {
           return <li
             key={genreItem}
             className={`catalog__genres-item ${activeClass}`}
-            onClick={()=>{
+            onClick={(evt)=>{
+              evt.preventDefault();
               onClick(genreItem);
             }}
           >

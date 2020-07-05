@@ -11,6 +11,10 @@ Enzyme.configure({
   adapter: new Adapter()
 });
 
+const mockEvent = {
+  preventDefault() {}
+};
+
 
 it(`Should Genre items be clicked`, () => {
   const onClick = jest.fn();
@@ -26,7 +30,7 @@ it(`Should Genre items be clicked`, () => {
   const genreItems = genresList.find(`li.catalog__genres-item`);
 
   genreItems.forEach((item) => {
-    item.simulate(`click`);
+    item.simulate(`click`, mockEvent);
   });
 
   expect(onClick).toHaveBeenCalledTimes(genreItems.length);
