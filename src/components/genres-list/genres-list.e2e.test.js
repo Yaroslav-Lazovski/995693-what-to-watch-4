@@ -35,3 +35,23 @@ it(`Should Genre items be clicked`, () => {
 
   expect(onClick).toHaveBeenCalledTimes(genreItems.length);
 });
+
+it(`Should Genre item return expected value`, () => {
+  const onClick = jest.fn();
+  const expectedValue = GENRES.KIDS_FAMILY;
+
+  const genresList = shallow(
+      <GenresList
+        genre={GENRES.ALL}
+        movies={movies}
+        onClick={onClick}
+      />
+  );
+
+  const dramaItem = genresList.find(`li.catalog__genres-item`).at(1);
+
+  dramaItem.simulate(`click`, mockEvent);
+
+  expect(onClick).toHaveBeenCalledTimes(1);
+  expect(onClick.mock.calls[0][0]).toEqual(expectedValue);
+});

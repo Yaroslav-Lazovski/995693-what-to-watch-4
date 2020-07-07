@@ -7,11 +7,9 @@ import {ActionCreator} from "../../reducer.js";
 
 const MAX_NUMBER_GENRES = 10;
 
-class GenresList extends PureComponent {
+export class GenresList extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.allMovies = this.props.movies;
 
     this.getGenresList = this.getGenresList.bind(this);
   }
@@ -21,7 +19,7 @@ class GenresList extends PureComponent {
 
     genres.add(`All genres`);
 
-    this.allMovies.forEach((movie) => {
+    this.props.movies.forEach((movie) => {
       genres.add(movie.genre);
     });
 
@@ -77,9 +75,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onClick(genre) {
     dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.getMoviesByGenre());
   }
 });
 
-export {GenresList};
 export default connect(mapStateToProps, mapDispatchToProps)(GenresList);

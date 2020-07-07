@@ -20,7 +20,7 @@ const promoInfo = {
 const MoviePageWrapped = withTabs(MoviePage);
 
 
-class App extends PureComponent {
+export class App extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -81,7 +81,7 @@ class App extends PureComponent {
     const {movies} = this.props;
     const {activeMovie} = this.state;
 
-    if (activeMovie === null) {
+    if (!activeMovie) {
       return this._renderMain();
     }
 
@@ -139,5 +139,4 @@ const mapStateToProps = (state) => ({
   movies: state.movies
 });
 
-export {App};
 export default connect(mapStateToProps)(App);
