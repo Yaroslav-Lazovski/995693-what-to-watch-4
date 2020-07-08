@@ -19,6 +19,19 @@ export const MOVIE_TITLES = [
   `Midnight Special`
 ];
 
+export const GENRES = {
+  ALL: `All genres`,
+  COMEDIAN: `Comedian`,
+  CRIME: `Crime`,
+  DOCUMENTARY: `Documentary`,
+  DRAMA: `Drama`,
+  HORROR: `Horror`,
+  KIDS_FAMILY: `Kids & Family`,
+  ROMANCE: `Romance`,
+  SCI_FI: `Sci-Fi`,
+  THRILLER: `Thriller`,
+};
+
 export const MovieRating = {
   BAD: 0,
   NORMAL: 3,

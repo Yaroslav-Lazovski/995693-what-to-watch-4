@@ -1,7 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import configureStore from "redux-mock-store";
+import {Provider} from "react-redux";
+
 import MoviePage from "./movie-page.jsx";
-import films from "../../mocks/films.js";
+
+import movies from "../../mocks/films.js";
+import {GENRES} from "../../consts.js";
 
 
 const movie = {
@@ -10,6 +15,7 @@ const movie = {
   genre: `Drama`,
   year: 2014,
   poster: `img/movie-poster.jpg`,
+  posterBig: `img/movie-poster-big.jpg`,
   ratingScore: 8.9,
   ratingCount: 240,
   description: `Movie description`,
@@ -37,30 +43,45 @@ const reviews = [
 
 const activeTab = `Overview`;
 
+const mockStore = configureStore([]);
+
+const store = mockStore({
+  genre: GENRES.ALL,
+  movies
+});
+
 
 describe(`MoviePage Snapshot`, () => {
   it(`Should movie page render correctly`, () => {
     const tree = renderer
-      .create(<MoviePage
-        movieBackground={movie.background}
-        movieTitle={movie.title}
-        movieGenre={movie.genre}
-        movieYear={movie.year}
-        moviePoster={movie.poster}
-        movieRatingScore={movie.ratingScore}
-        movieRatingCount={movie.ratingCount}
-        movieDescription={movie.description}
-        movieDirector={movie.director}
-        movieStarring={movie.starring}
-        movieRunTime={movie.runTime}
-        movies={films}
-        reviews={reviews}
-        activeTab={activeTab}
-        renderTabs={() => {}}
-        onTitleClick={() => {}}
-        onPosterClick={() => {}}
-      />)
-      .toJSON();
+    .create(
+        <Provider store={store}>
+          <MoviePage
+            movieBackground={movie.background}
+            movieTitle={movie.title}
+            movieGenre={movie.genre}
+            movieYear={movie.year}
+            moviePoster={movie.poster}
+            moviePosterBig={movie.posterBig}
+            movieRatingScore={movie.ratingScore}
+            movieRatingCount={movie.ratingCount}
+            movieDescription={movie.description}
+            movieDirector={movie.director}
+            movieStarring={movie.starring}
+            movieRunTime={movie.runTime}
+            movies={movies}
+            reviews={reviews}
+            activeTab={activeTab}
+            renderTabs={() => {}}
+            onTitleClick={() => {}}
+            onPosterClick={() => {}}
+          />
+        </Provider>, {
+          createNodeMock: ()=>{
+            return {};
+          }
+        })
+    .toJSON();
 
     expect(tree).toMatchSnapshot();
   });

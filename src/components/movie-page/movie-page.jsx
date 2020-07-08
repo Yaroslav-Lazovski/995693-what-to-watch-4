@@ -11,7 +11,7 @@ import {getSimilarMovies} from "../../utils.js";
 
 
 const MoviePage = (props) => {
-  const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore,
+  const {movieBackground, movieTitle, movieGenre, movieYear, moviePosterBig, movieRatingScore,
     movieRatingCount, movieDescription, movieDirector, movieStarring, movieRunTime, movies, reviews, renderTabs, activeTab, onTitleClick, onPosterClick} = props;
 
   const similarMovies = getSimilarMovies(movies, movieGenre);
@@ -102,7 +102,7 @@ const MoviePage = (props) => {
         <div className="movie-card__wrap movie-card__translate-top">
           <div className="movie-card__info">
             <div className="movie-card__poster movie-card__poster--big">
-              <img src={moviePoster} alt={movieTitle} width="218" height="327" />
+              <img src={moviePosterBig} alt={movieTitle} width="218" height="327" />
             </div>
 
             <div className="movie-card__desc">
@@ -148,6 +148,7 @@ MoviePage.propTypes = {
   movieGenre: PropTypes.string.isRequired,
   movieYear: PropTypes.number.isRequired,
   moviePoster: PropTypes.string.isRequired,
+  moviePosterBig: PropTypes.string.isRequired,
   movieRatingScore: PropTypes.number.isRequired,
   movieRatingCount: PropTypes.number.isRequired,
   movieDescription: PropTypes.string.isRequired,
