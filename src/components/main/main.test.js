@@ -14,7 +14,8 @@ describe(`Main Snapshot`, () => {
   it(`Should main render correctly`, () => {
     const store = mockStore({
       genre: GENRES.ALL,
-      movies
+      movies,
+      showedMoviesNumber: 8
     });
 
     const tree = renderer

@@ -21,6 +21,7 @@ const mockStore = configureStore([]);
 const store = mockStore({
   genre: GENRES.ALL,
   movies,
+  showedMoviesNumber: 8
 });
 
 describe(`Main e2e tests`, () => {

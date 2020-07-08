@@ -1,7 +1,5 @@
 import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
@@ -20,7 +18,7 @@ const promoInfo = {
 const MoviePageWrapped = withTabs(MoviePage);
 
 
-export class App extends PureComponent {
+class App extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -118,19 +116,5 @@ export class App extends PureComponent {
   }
 }
 
-App.propTypes = {
-  movies: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
-};
 
-
-const mapStateToProps = (state) => ({
-  movies: state.movies
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

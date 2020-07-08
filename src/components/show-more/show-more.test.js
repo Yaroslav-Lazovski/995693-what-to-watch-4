@@ -6,7 +6,9 @@ import ShowMore from "./show-more";
 it(`Should ShowMore render correctly`, () => {
   const tree = renderer
     .create(
-        <ShowMore/>
+        <ShowMore
+          onShowMoreButtonClick={() => {}}
+        />
     )
     .toJSON();
 
