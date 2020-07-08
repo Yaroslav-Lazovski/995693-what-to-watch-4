@@ -1,9 +1,10 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
-import {connect} from "react-redux";
+import ShowMore from "../show-more/show-more.jsx";
 
 
 export class Main extends PureComponent {
@@ -84,9 +85,7 @@ export class Main extends PureComponent {
             onPosterClick={onPosterClick}
           />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMore />
         </section>
 
         <footer className="page-footer">
