@@ -75,6 +75,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onClick(genre) {
     dispatch(ActionCreator.changeGenre(genre));
+    dispatch(ActionCreator.resetShowedMovies());
   }
 });
 
