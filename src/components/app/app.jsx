@@ -1,7 +1,5 @@
 import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
-import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
@@ -20,7 +18,7 @@ const promoInfo = {
 const MoviePageWrapped = withTabs(MoviePage);
 
 
-export class App extends PureComponent {
+class App extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -38,13 +36,11 @@ export class App extends PureComponent {
   }
 
   _renderMain() {
-    const {movies} = this.props;
     return (
       <Main
         promoTitle={promoInfo.title}
         promoGenre={promoInfo.genre}
         promoYear={promoInfo.year}
-        movies={movies}
         onTitleClick={this._handleMovieTitleClick}
         onPosterClick={this._handleMovieTitleClick}
       />
@@ -54,7 +50,6 @@ export class App extends PureComponent {
   _renderMoviePage() {
     const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore,
       movieRatingCount, movieDescription, movieDirector, movieStarring, movieRunTime} = movieOverview;
-    const {movies} = this.props;
 
     return (
       <MoviePageWrapped
@@ -69,7 +64,6 @@ export class App extends PureComponent {
         movieDirector={movieDirector}
         movieStarring={movieStarring}
         movieRunTime={movieRunTime}
-        movies={movies}
         reviews={reviews}
         onTitleClick={this._handleMovieTitleClick}
         onPosterClick={this._handleMovieTitleClick}
@@ -78,7 +72,6 @@ export class App extends PureComponent {
   }
 
   _renderApp() {
-    const {movies} = this.props;
     const {activeMovie} = this.state;
 
     if (!activeMovie) {
@@ -99,7 +92,6 @@ export class App extends PureComponent {
         movieDirector={activeMovie.director}
         movieStarring={activeMovie.starring}
         movieRunTime={activeMovie.runTime}
-        movies={movies}
         reviews={reviews}
         onTitleClick={this._handleMovieTitleClick}
         onPosterClick={this._handleMovieTitleClick}
@@ -124,19 +116,5 @@ export class App extends PureComponent {
   }
 }
 
-App.propTypes = {
-  movies: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        poster: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
-};
 
-
-const mapStateToProps = (state) => ({
-  movies: state.movies
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

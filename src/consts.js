@@ -53,3 +53,5 @@ export const TabType = {
   DETAILS: `Details`,
   REVIEWS: `Reviews`
 };
+
+export const MAX_MOVIES_IN_LIST = 8;
