@@ -5,10 +5,13 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import MovieOverview from "../movie-overview/movie-overview.jsx";
 import MovieDetails from "../movie-details/movie-details.jsx";
 import MovieReviews from "../movie-reviews/movie-reviews.jsx";
+import withActiveCard from "../../hocs/with-active-card.js";
 
 import {TabType} from "../../consts.js";
 import {getSimilarMovies} from "../../utils.js";
 import {connect} from "react-redux";
+
+const MoviesListWrapped = withActiveCard(MoviesList);
 
 
 export class MoviePage extends PureComponent {
@@ -124,7 +127,7 @@ export class MoviePage extends PureComponent {
         <div className="page-content">
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <MoviesList
+            <MoviesListWrapped
               movies={similarMovies}
               onTitleClick={onTitleClick}
               onPosterClick={onPosterClick}

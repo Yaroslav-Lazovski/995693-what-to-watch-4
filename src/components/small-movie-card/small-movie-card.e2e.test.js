@@ -18,10 +18,13 @@ describe(`SmallMovieCard e2e tests`, () => {
     const movieCardComponent = shallow(
         <SmallMovieCard
           movie={movieInfo}
+          isPlaying={false}
           onTitleClick={() => {}}
           onPosterClick={() => {}}
           onMouseEnter={onMouseEnter}
           onMouseLeave={() => {}}
+          onStartPlaying={() => {}}
+          onStopPlaying={() => {}}
         />
     );
 
@@ -38,10 +41,13 @@ describe(`SmallMovieCard e2e tests`, () => {
     const movieCardComponent = shallow(
         <SmallMovieCard
           movie={movieInfo}
+          isPlaying={false}
           onTitleClick={() => {}}
           onPosterClick={() => {}}
           onMouseEnter={() => {}}
           onMouseLeave={onMouseLeave}
+          onStartPlaying={() => {}}
+          onStopPlaying={() => {}}
         />
     );
 

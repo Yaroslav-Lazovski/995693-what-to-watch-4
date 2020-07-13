@@ -1,33 +1,19 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 import {connect} from "react-redux";
 
+import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import withVideoPlayer from "../../hocs/with-video-player.js";
+
 import {GENRES} from "../../consts.js";
+
+const SmallMovieCardWrapper = withVideoPlayer(SmallMovieCard);
 
 class MoviesList extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      activeCard: null
-    };
-
-    this._handleMovieCardMouseEnter = this._handleMovieCardMouseEnter.bind(this);
-    this._handleMovieCardMouseLeave = this._handleMovieCardMouseLeave.bind(this);
   }
 
-  _handleMovieCardMouseEnter(id) {
-    this.setState({
-      activeCard: id
-    });
-  }
-
-  _handleMovieCardMouseLeave() {
-    this.setState({
-      activeCard: null
-    });
-  }
 
   _getFilteredMovies(genre, allMovies) {
     if (genre === GENRES.ALL) {
@@ -40,19 +26,19 @@ class MoviesList extends PureComponent {
   }
 
   render() {
-    const {movies, genre, onTitleClick, onPosterClick} = this.props;
+    const {movies, genre, onTitleClick, onPosterClick, onMouseEnter, onMouseLeave} = this.props;
     const filteredMovies = this._getFilteredMovies(genre, movies);
 
     return (
       <div className="catalog__movies-list">
         {filteredMovies.map((movie, index) => (
-          <SmallMovieCard
+          <SmallMovieCardWrapper
             key={movie + index}
             movie={movie}
             onTitleClick={onTitleClick}
             onPosterClick={onPosterClick}
-            onMouseEnter={this._handleMovieCardMouseEnter}
-            onMouseLeave={this._handleMovieCardMouseLeave}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
           />
         ))}
       </div>
@@ -72,6 +58,8 @@ MoviesList.propTypes = {
   genre: PropTypes.string.isRequired,
   onTitleClick: PropTypes.func.isRequired,
   onPosterClick: PropTypes.func.isRequired,
+  onMouseEnter: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
