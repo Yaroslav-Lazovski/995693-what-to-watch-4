@@ -2,14 +2,12 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
 
+const VIDEO_DELAY = 1000;
+
 
 class SmallMovieCard extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isPlaying: false
-    };
 
     this._videoDelay = null;
 
@@ -40,25 +38,20 @@ class SmallMovieCard extends PureComponent {
 
 
   _handleMouseEnter() {
-    const {movie: id, onMouseEnter} = this.props;
+    const {movie: id, onMouseEnter, onStartPlaying} = this.props;
 
-    this._videoDelay = setTimeout(() =>
-      this.setState({
-        isPlaying: true
-      }), 1000);
+    this._videoDelay = setTimeout(onStartPlaying, VIDEO_DELAY);
 
     onMouseEnter(id);
   }
 
   _handleMouseLeave() {
-    const {onMouseLeave} = this.props;
+    const {onMouseLeave, onStopPlaying} = this.props;
 
     if (this._videoDelay) {
       clearTimeout(this._videoDelay);
 
-      this.setState({
-        isPlaying: false
-      });
+      onStopPlaying();
     }
 
     onMouseLeave();
@@ -66,8 +59,7 @@ class SmallMovieCard extends PureComponent {
 
 
   render() {
-    const {isPlaying} = this.state;
-    const {movie} = this.props;
+    const {movie, isPlaying} = this.props;
     const {title, poster, preview} = movie;
 
     return (
@@ -113,6 +105,9 @@ SmallMovieCard.propTypes = {
   onPosterClick: PropTypes.func.isRequired,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  onStartPlaying: PropTypes.func.isRequired,
+  onStopPlaying: PropTypes.func.isRequired,
 };
 
 export default SmallMovieCard;

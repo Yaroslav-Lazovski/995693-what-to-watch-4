@@ -5,8 +5,11 @@ import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
+import withActiveCard from "../../hocs/with-active-card.js";
 
 import {ActionCreator} from "../../reducer.js";
+
+const MoviesListWrapped = withActiveCard(MoviesList);
 
 
 export class Main extends PureComponent {
@@ -80,7 +83,7 @@ export class Main extends PureComponent {
 
           <GenresList />
 
-          <MoviesList
+          <MoviesListWrapped
             movies={showedMovies}
             onTitleClick={onTitleClick}
             onPosterClick={onPosterClick}

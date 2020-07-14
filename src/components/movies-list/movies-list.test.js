@@ -26,6 +26,8 @@ describe(`MoviesList Snapshot`, () => {
             movies={movies}
             onTitleClick={() => {}}
             onPosterClick={() => {}}
+            onMouseEnter={() => {}}
+            onMouseLeave={() => {}}
           />
         </Provider>, {
           createNodeMock: ()=>{
