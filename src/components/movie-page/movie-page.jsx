@@ -1,5 +1,6 @@
 import React, {PureComponent, Fragment} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 import MoviesList from "../movies-list/movies-list.jsx";
 import MovieOverview from "../movie-overview/movie-overview.jsx";
@@ -9,7 +10,6 @@ import withActiveCard from "../../hocs/with-active-card.js";
 
 import {TabType} from "../../consts.js";
 import {getSimilarMovies} from "../../utils.js";
-import {connect} from "react-redux";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 
@@ -22,25 +22,25 @@ export class MoviePage extends PureComponent {
   }
 
   _renderActiveTab() {
-    const {movieGenre, movieYear, movieRatingScore, movieRatingCount, movieDescription, movieDirector, movieStarring, movieRunTime, reviews, activeTab} = this.props;
+    const {genre, year, ratingScore, ratingCount, description, director, starring, runTime, reviews, activeTab} = this.props;
 
     switch (activeTab) {
       case TabType.OVERVIEW:
         return <MovieOverview
-          movieRatingScore={movieRatingScore}
-          movieRatingCount={movieRatingCount}
-          movieDescription={movieDescription}
-          movieDirector={movieDirector}
-          movieStarring={movieStarring}
+          ratingScore={ratingScore}
+          ratingCount={ratingCount}
+          description={description}
+          director={director}
+          starring={starring}
         />;
 
       case TabType.DETAILS:
         return <MovieDetails
-          movieDirector={movieDirector}
-          movieStarring={movieStarring}
-          movieGenre={movieGenre}
-          movieYear={movieYear}
-          movieRunTime={movieRunTime}
+          director={director}
+          starring={starring}
+          genre={genre}
+          year={year}
+          runTime={runTime}
         />;
 
       case TabType.REVIEWS:
@@ -54,15 +54,15 @@ export class MoviePage extends PureComponent {
   }
 
   render() {
-    const {movieBackground, movieTitle, movieGenre, movieYear, moviePosterBig, renderTabs, onTitleClick, onPosterClick} = this.props;
-    const similarMovies = getSimilarMovies(this.props.movies, movieGenre);
+    const {background, title, genre, year, posterBig, renderTabs, onTitleClick, onPosterClick} = this.props;
+    const similarMovies = getSimilarMovies(this.props.movies, genre);
 
     return (
       <Fragment>
         <section className="movie-card movie-card--full">
           <div className="movie-card__hero">
             <div className="movie-card__bg">
-              <img src={movieBackground} alt={movieTitle} />
+              <img src={background} alt={title} />
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -85,10 +85,10 @@ export class MoviePage extends PureComponent {
 
             <div className="movie-card__wrap">
               <div className="movie-card__desc">
-                <h2 className="movie-card__title">{movieTitle}</h2>
+                <h2 className="movie-card__title">{title}</h2>
                 <p className="movie-card__meta">
-                  <span className="movie-card__genre">{movieGenre}</span>
-                  <span className="movie-card__year">{movieYear}</span>
+                  <span className="movie-card__genre">{genre}</span>
+                  <span className="movie-card__year">{year}</span>
                 </p>
 
                 <div className="movie-card__buttons">
@@ -113,7 +113,7 @@ export class MoviePage extends PureComponent {
           <div className="movie-card__wrap movie-card__translate-top">
             <div className="movie-card__info">
               <div className="movie-card__poster movie-card__poster--big">
-                <img src={moviePosterBig} alt={movieTitle} width="218" height="327" />
+                <img src={posterBig} alt={title} width="218" height="327" />
               </div>
 
               <div className="movie-card__desc">
@@ -155,18 +155,18 @@ export class MoviePage extends PureComponent {
 
 
 MoviePage.propTypes = {
-  movieBackground: PropTypes.string.isRequired,
-  movieTitle: PropTypes.string.isRequired,
-  movieGenre: PropTypes.string.isRequired,
-  movieYear: PropTypes.number.isRequired,
-  moviePoster: PropTypes.string.isRequired,
-  moviePosterBig: PropTypes.string.isRequired,
-  movieRatingScore: PropTypes.number.isRequired,
-  movieRatingCount: PropTypes.number.isRequired,
-  movieDescription: PropTypes.string.isRequired,
-  movieDirector: PropTypes.string.isRequired,
-  movieStarring: PropTypes.string.isRequired,
-  movieRunTime: PropTypes.string.isRequired,
+  background: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  genre: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired,
+  poster: PropTypes.string.isRequired,
+  posterBig: PropTypes.string.isRequired,
+  ratingScore: PropTypes.number.isRequired,
+  ratingCount: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
+  director: PropTypes.string.isRequired,
+  starring: PropTypes.string.isRequired,
+  runTime: PropTypes.string.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,

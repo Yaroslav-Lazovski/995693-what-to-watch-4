@@ -4,24 +4,24 @@ import PropTypes from "prop-types";
 import {formatRating, getRatingLevel} from "../../utils.js";
 
 const MovieOverview = (props) => {
-  const {movieRatingScore, movieRatingCount, movieDescription, movieDirector, movieStarring} = props;
+  const {ratingScore, ratingCount, description, director, starring} = props;
 
   return (
     <React.Fragment>
       <div className="movie-rating">
-        <div className="movie-rating__score">{formatRating(movieRatingScore)}</div>
+        <div className="movie-rating__score">{formatRating(ratingScore)}</div>
         <p className="movie-rating__meta">
-          <span className="movie-rating__level">{getRatingLevel(movieRatingScore)}</span>
-          <span className="movie-rating__count">{movieRatingCount} ratings</span>
+          <span className="movie-rating__level">{getRatingLevel(ratingScore)}</span>
+          <span className="movie-rating__count">{ratingCount} ratings</span>
         </p>
       </div>
 
       <div className="movie-card__text">
-        <p>{movieDescription}</p>
+        <p>{description}</p>
 
-        <p className="movie-card__director"><strong>Director: {movieDirector}</strong></p>
+        <p className="movie-card__director"><strong>Director: {director}</strong></p>
 
-        <p className="movie-card__starring"><strong>Starring: {movieStarring} and other</strong></p>
+        <p className="movie-card__starring"><strong>Starring: {starring} and other</strong></p>
       </div>
     </React.Fragment>
   );
@@ -29,11 +29,11 @@ const MovieOverview = (props) => {
 
 
 MovieOverview.propTypes = {
-  movieRatingScore: PropTypes.number.isRequired,
-  movieRatingCount: PropTypes.number.isRequired,
-  movieDescription: PropTypes.string.isRequired,
-  movieDirector: PropTypes.string.isRequired,
-  movieStarring: PropTypes.string.isRequired,
+  ratingScore: PropTypes.number.isRequired,
+  ratingCount: PropTypes.number.isRequired,
+  description: PropTypes.string.isRequired,
+  director: PropTypes.string.isRequired,
+  starring: PropTypes.string.isRequired,
 };
 
 export default MovieOverview;
