@@ -7,6 +7,7 @@ import {Provider} from "react-redux";
 import Main from "./main.jsx";
 
 import movies from "../../mocks/films.js";
+import movie from "../../mocks/movie.js";
 import {GENRES} from "../../consts.js";
 
 Enzyme.configure({
@@ -20,8 +21,10 @@ const mockEvent = {
 const mockStore = configureStore([]);
 const store = mockStore({
   genre: GENRES.ALL,
+  movie,
   movies,
-  showedMoviesNumber: 8
+  showedMoviesNumber: 8,
+  isPlayerActive: false,
 });
 
 describe(`Main e2e tests`, () => {
@@ -31,9 +34,9 @@ describe(`Main e2e tests`, () => {
     const mainComponent = mount(
         <Provider store={store}>
           <Main
-            promoTitle={`The Grand Budapest Hotel`}
-            promoGenre={`Drama`}
-            promoYear={2014}
+            title={`The Grand Budapest Hotel`}
+            genre={`Drama`}
+            year={2014}
             movies={movies}
             onTitleClick={onTitleClick}
             onPosterClick={() => {}}
@@ -55,9 +58,9 @@ describe(`Main e2e tests`, () => {
     const mainComponent = mount(
         <Provider store={store}>
           <Main
-            promoTitle={`The Grand Budapest Hotel`}
-            promoGenre={`Drama`}
-            promoYear={2014}
+            title={`The Grand Budapest Hotel`}
+            genre={`Drama`}
+            year={2014}
             movies={movies}
             onTitleClick={() => {}}
             onPosterClick={onPosterClick}

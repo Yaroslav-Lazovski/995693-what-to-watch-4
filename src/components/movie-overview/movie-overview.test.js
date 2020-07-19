@@ -17,11 +17,11 @@ describe(`MovieOverview Snapshot`, () => {
   it(`Should MovieOverview render correctly`, () => {
     const tree = renderer
       .create(<MovieOverview
-        movieDirector= {movie.director}
-        movieStarring= {movie.starring}
-        movieRatingScore={movie.ratingScore}
-        movieRatingCount={movie.ratingCount}
-        movieDescription={movie.description}
+        director= {movie.director}
+        starring= {movie.starring}
+        ratingScore={movie.ratingScore}
+        ratingCount={movie.ratingCount}
+        description={movie.description}
       />)
       .toJSON();
 

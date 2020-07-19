@@ -9,12 +9,6 @@ import movieOverview from "../../mocks/movie.js";
 import reviews from "../../mocks/reviews.js";
 
 
-const promoInfo = {
-  title: `The Grand Budapest Hotel`,
-  genre: `Drama`,
-  year: 2014,
-};
-
 const MoviePageWrapped = withTabs(MoviePage);
 
 
@@ -38,9 +32,6 @@ class App extends PureComponent {
   _renderMain() {
     return (
       <Main
-        promoTitle={promoInfo.title}
-        promoGenre={promoInfo.genre}
-        promoYear={promoInfo.year}
         onTitleClick={this._handleMovieTitleClick}
         onPosterClick={this._handleMovieTitleClick}
       />
@@ -48,22 +39,22 @@ class App extends PureComponent {
   }
 
   _renderMoviePage() {
-    const {movieBackground, movieTitle, movieGenre, movieYear, moviePoster, movieRatingScore,
-      movieRatingCount, movieDescription, movieDirector, movieStarring, movieRunTime} = movieOverview;
+    const {background, title, genre, year, poster, ratingScore,
+      ratingCount, description, director, starring, runTime} = movieOverview;
 
     return (
       <MoviePageWrapped
-        movieBackground={movieBackground}
-        movieTitle={movieTitle}
-        movieGenre={movieGenre}
-        movieYear={movieYear}
-        moviePoster={moviePoster}
-        movieRatingScore={movieRatingScore}
-        movieRatingCount={movieRatingCount}
-        movieDescription={movieDescription}
-        movieDirector={movieDirector}
-        movieStarring={movieStarring}
-        movieRunTime={movieRunTime}
+        background={background}
+        title={title}
+        genre={genre}
+        year={year}
+        poster={poster}
+        ratingScore={ratingScore}
+        ratingCount={ratingCount}
+        description={description}
+        director={director}
+        starring={starring}
+        runTime={runTime}
         reviews={reviews}
         onTitleClick={this._handleMovieTitleClick}
         onPosterClick={this._handleMovieTitleClick}
@@ -80,18 +71,18 @@ class App extends PureComponent {
 
     return (
       <MoviePageWrapped
-        movieBackground={activeMovie.background}
-        movieTitle={activeMovie.title}
-        movieGenre={activeMovie.genre}
-        movieYear={activeMovie.year}
-        moviePoster={activeMovie.poster}
-        moviePosterBig={activeMovie.posterBig}
-        movieRatingScore={activeMovie.ratingScore}
-        movieRatingCount={activeMovie.ratingCount}
-        movieDescription={activeMovie.description}
-        movieDirector={activeMovie.director}
-        movieStarring={activeMovie.starring}
-        movieRunTime={activeMovie.runTime}
+        background={activeMovie.background}
+        title={activeMovie.title}
+        genre={activeMovie.genre}
+        year={activeMovie.year}
+        poster={activeMovie.poster}
+        posterBig={activeMovie.posterBig}
+        ratingScore={activeMovie.ratingScore}
+        ratingCount={activeMovie.ratingCount}
+        description={activeMovie.description}
+        director={activeMovie.director}
+        starring={activeMovie.starring}
+        runTime={activeMovie.runTime}
         reviews={reviews}
         onTitleClick={this._handleMovieTitleClick}
         onPosterClick={this._handleMovieTitleClick}

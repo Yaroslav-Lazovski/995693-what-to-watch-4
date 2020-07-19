@@ -2,13 +2,16 @@ import {reducer, ActionCreator, ActionType} from "./reducer.js";
 
 import {GENRES, MAX_MOVIES_IN_LIST} from "./consts.js";
 import movies from "./mocks/films.js";
+import movie from "./mocks/movie.js";
 
 
 it(`Returns initial state at application start`, ()=>{
   expect(reducer(undefined, {})).toEqual({
     genre: GENRES.ALL,
+    movie,
     movies,
     showedMoviesNumber: 8,
+    isPlayerActive: false,
   });
 });
 
