@@ -9,7 +9,9 @@ import ShowMore from "../show-more/show-more.jsx";
 import withActiveCard from "../../hocs/with-active-card.js";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player.js";
 
-import {ActionCreator} from "../../reducer/reducer.js";
+import {ActionCreator} from "../../reducer/state/state.js";
+import {getPromoMovie, getMovies} from "../../reducer/data/selectors";
+import {getShowedMovies, getPlayerState} from "../../reducer/state/selectors.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
@@ -152,10 +154,10 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movie: state.movie,
-  movies: state.movies,
-  showedMoviesNumber: state.showedMoviesNumber,
-  isPlayerActive: state.isPlayerActive,
+  movie: getPromoMovie(state),
+  movies: getMovies(state),
+  showedMoviesNumber: getShowedMovies(state),
+  isPlayerActive: getPlayerState(state),
 });
 
 
