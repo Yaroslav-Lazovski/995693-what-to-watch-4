@@ -9,7 +9,7 @@ import ShowMore from "../show-more/show-more.jsx";
 import withActiveCard from "../../hocs/with-active-card.js";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player.js";
 
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/reducer.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);

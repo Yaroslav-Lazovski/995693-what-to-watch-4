@@ -1,13 +1,9 @@
-import movies from "./mocks/films.js";
-import movie from "./mocks/movie.js";
-import {extend} from "./utils.js";
-import {GENRES, MAX_MOVIES_IN_LIST} from "./consts.js";
+import {extend} from "../../utils.js";
+import {GENRES, MAX_MOVIES_IN_LIST} from "../../consts.js";
 
 
 const initialState = {
   genre: GENRES.ALL,
-  movie,
-  movies,
   showedMoviesNumber: MAX_MOVIES_IN_LIST,
   isPlayerActive: false,
 };
