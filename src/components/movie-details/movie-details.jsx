@@ -1,9 +1,19 @@
-import React from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 
 
 const MovieDetails = (props) => {
   const {director, starring, runTime, genre, year} = props;
+
+  const getStarring = (starringItem, i) => {
+    const key = `${starringItem} + ${i}`;
+
+    return (
+      <Fragment key={key}>
+        {starringItem} <br />
+      </Fragment>
+    );
+  };
 
   return (
     <div className="movie-card__text movie-card__row">
@@ -14,7 +24,7 @@ const MovieDetails = (props) => {
         </p>
         <p className="movie-card__details-item">
           <strong className="movie-card__details-name">Starring</strong>
-          <span className="movie-card__details-value">{starring}</span>
+          <span className="movie-card__details-value">{starring.map(getStarring)}</span>
         </p>
       </div>
       <div className="movie-card__text-col">
@@ -38,8 +48,10 @@ const MovieDetails = (props) => {
 
 MovieDetails.propTypes = {
   director: PropTypes.string.isRequired,
-  starring: PropTypes.string.isRequired,
-  runTime: PropTypes.string.isRequired,
+  starring: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired,
+  runTime: PropTypes.number.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.number.isRequired,
 };

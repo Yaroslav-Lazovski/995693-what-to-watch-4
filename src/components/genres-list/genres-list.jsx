@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {ActionCreator} from "../../reducer/state/state.js";
-
 import {getMovies} from "../../reducer/data/selectors.js";
 import {getCurrentGenre} from "../../reducer/state/selectors.js";
 

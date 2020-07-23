@@ -1,11 +1,15 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
 import VideoPlayer from "../video-player/video-player.jsx";
+
+import {ActionCreator} from "../../reducer/state/state";
 
 const VIDEO_DELAY = 1000;
 
 
-class SmallMovieCard extends PureComponent {
+export class SmallMovieCard extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -110,4 +114,11 @@ SmallMovieCard.propTypes = {
   onStopPlaying: PropTypes.func.isRequired,
 };
 
-export default SmallMovieCard;
+
+const mapDispatchToProps = (dispatch) => ({
+  onPosterClick(id) {
+    dispatch(ActionCreator.getActiveMovieId(id));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(SmallMovieCard);

@@ -8,6 +8,7 @@ import MovieDetails from "../movie-details/movie-details.jsx";
 import MovieReviews from "../movie-reviews/movie-reviews.jsx";
 import withActiveCard from "../../hocs/with-active-card.js";
 
+import {getMovies} from "../../reducer/data/selectors.js";
 import {TabType} from "../../consts.js";
 import {getSimilarMovies} from "../../utils.js";
 
@@ -165,8 +166,10 @@ MoviePage.propTypes = {
   ratingCount: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
   director: PropTypes.string.isRequired,
-  starring: PropTypes.string.isRequired,
-  runTime: PropTypes.string.isRequired,
+  starring: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired,
+  runTime: PropTypes.number.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -190,7 +193,7 @@ MoviePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: state.movies
+  movies: getMovies(state)
 });
 
 

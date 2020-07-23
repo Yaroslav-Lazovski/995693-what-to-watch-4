@@ -1,9 +1,9 @@
-const movieAdapter = (movie) => {
+export const movieAdapter = (movie) => {
   return {
     id: movie.id,
     title: movie.name,
-    poster: movie.poster_image,
-    posterBig: movie.preview_image,
+    posterBig: movie.poster_image,
+    poster: movie.preview_image,
     background: movie.background_image,
     backgroundColor: movie.background_color,
     src: movie.video_link,
@@ -20,4 +20,6 @@ const movieAdapter = (movie) => {
   };
 };
 
-export default movieAdapter;
+export const moviesAdapter = (movies) => {
+  return movies.map((movie) => movieAdapter(movie));
+};

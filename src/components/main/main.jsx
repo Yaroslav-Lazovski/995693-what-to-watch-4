@@ -30,9 +30,8 @@ export class Main extends PureComponent {
 
 
   render() {
-    const {movie: {year, title, genre}, onTitleClick, onPosterClick, onFullScreenToggle, isPlayerActive} = this.props;
+    const {movie: {year, title, genre, background, posterBig}, onTitleClick, onPosterClick, onFullScreenToggle, isPlayerActive} = this.props;
     const showedMovies = this.props.movies.slice(0, this.props.showedMoviesNumber);
-
 
     return (
       isPlayerActive ? (
@@ -41,7 +40,7 @@ export class Main extends PureComponent {
         (<React.Fragment>
           <section className="movie-card">
             <div className="movie-card__bg">
-              <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+              <img src={background} alt={title} />
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -65,7 +64,7 @@ export class Main extends PureComponent {
             <div className="movie-card__wrap">
               <div className="movie-card__info">
                 <div className="movie-card__poster">
-                  <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+                  <img src={posterBig} alt={title} width="218" height="327" />
                 </div>
 
                 <div className="movie-card__desc">
@@ -136,6 +135,8 @@ Main.propTypes = {
     title: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     genre: PropTypes.string.isRequired,
+    background: PropTypes.string.isRequired,
+    posterBig: PropTypes.string.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({

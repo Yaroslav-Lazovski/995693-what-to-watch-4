@@ -1,18 +1,20 @@
 import React, {PureComponent} from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import withTabs from "../../hocs/with-tabs.js";
 
-import movieOverview from "../../mocks/movie.js";
+import {getSelectedMovie} from "../../reducer/state/selectors";
+
 import reviews from "../../mocks/reviews.js";
 
 
 const MoviePageWrapped = withTabs(MoviePage);
 
 
-class App extends PureComponent {
+export class App extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -39,30 +41,6 @@ class App extends PureComponent {
   }
 
   _renderMoviePage() {
-    const {background, title, genre, year, poster, ratingScore,
-      ratingCount, description, director, starring, runTime} = movieOverview;
-
-    return (
-      <MoviePageWrapped
-        background={background}
-        title={title}
-        genre={genre}
-        year={year}
-        poster={poster}
-        ratingScore={ratingScore}
-        ratingCount={ratingCount}
-        description={description}
-        director={director}
-        starring={starring}
-        runTime={runTime}
-        reviews={reviews}
-        onTitleClick={this._handleMovieTitleClick}
-        onPosterClick={this._handleMovieTitleClick}
-      />
-    );
-  }
-
-  _renderApp() {
     const {activeMovie} = this.state;
 
     if (!activeMovie) {
@@ -90,6 +68,16 @@ class App extends PureComponent {
     );
   }
 
+  _renderApp() {
+    const {activeMovie} = this.state;
+
+    if (!activeMovie) {
+      return this._renderMain();
+    }
+
+    return this._renderMoviePage();
+  }
+
 
   render() {
     return (
@@ -108,4 +96,8 @@ class App extends PureComponent {
 }
 
 
-export default App;
+const mapStateToProps = (state) => ({
+  activeMovie: getSelectedMovie(state),
+});
+
+export default connect(mapStateToProps)(App);

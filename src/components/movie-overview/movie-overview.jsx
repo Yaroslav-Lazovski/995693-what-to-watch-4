@@ -21,7 +21,7 @@ const MovieOverview = (props) => {
 
         <p className="movie-card__director"><strong>Director: {director}</strong></p>
 
-        <p className="movie-card__starring"><strong>Starring: {starring} and other</strong></p>
+        <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)} and other</strong></p>
       </div>
     </React.Fragment>
   );
@@ -33,7 +33,9 @@ MovieOverview.propTypes = {
   ratingCount: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
   director: PropTypes.string.isRequired,
-  starring: PropTypes.string.isRequired,
+  starring: PropTypes.arrayOf(
+      PropTypes.string.isRequired
+  ).isRequired,
 };
 
 export default MovieOverview;
