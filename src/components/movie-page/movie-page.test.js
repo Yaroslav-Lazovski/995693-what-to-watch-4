@@ -3,8 +3,9 @@ import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 
-import MoviePage from "./movie-page.jsx";
+import {MoviePage} from "./movie-page.jsx";
 
+import NameSpace from "../../reducer/name-space";
 import movies from "../../mocks/films.js";
 import {GENRES} from "../../consts.js";
 
@@ -20,8 +21,8 @@ const movie = {
   ratingCount: 240,
   description: `Movie description`,
   director: `Movie director`,
-  starring: `Movie starring`,
-  runTime: `Movie runTime`
+  starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+  runTime: 120
 };
 
 const reviews = [
@@ -46,8 +47,12 @@ const activeTab = `Overview`;
 const mockStore = configureStore([]);
 
 const store = mockStore({
-  genre: GENRES.ALL,
-  movies
+  [NameSpace.DATA]: {
+    movies
+  },
+  [NameSpace.STATE]: {
+    genre: GENRES.ALL,
+  }
 });
 
 

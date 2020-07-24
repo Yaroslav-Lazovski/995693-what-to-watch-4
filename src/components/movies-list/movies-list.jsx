@@ -10,7 +10,7 @@ import {GENRES} from "../../consts.js";
 
 const SmallMovieCardWrapper = withVideoPlayer(SmallMovieCard);
 
-class MoviesList extends PureComponent {
+export class MoviesList extends PureComponent {
   constructor(props) {
     super(props);
   }

@@ -9,6 +9,7 @@ it(`Returns initial state at application start`, ()=>{
     genre: GENRES.ALL,
     showedMoviesNumber: 8,
     isPlayerActive: false,
+    activeMovie: -1,
   });
 });
 

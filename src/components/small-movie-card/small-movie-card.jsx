@@ -42,7 +42,7 @@ export class SmallMovieCard extends PureComponent {
 
 
   _handleMouseEnter() {
-    const {movie: id, onMouseEnter, onStartPlaying} = this.props;
+    const {movie: {id}, onMouseEnter, onStartPlaying} = this.props;
 
     this._videoDelay = setTimeout(onStartPlaying, VIDEO_DELAY);
 
