@@ -27,14 +27,14 @@ export class SmallMovieCard extends PureComponent {
   }
 
   _handleTitleClick(evt) {
-    const {movie: id, onTitleClick} = this.props;
+    const {movie: {id}, onTitleClick} = this.props;
 
     evt.preventDefault();
     onTitleClick(id);
   }
 
   _handlePosterClick(evt) {
-    const {movie: id, onPosterClick} = this.props;
+    const {movie: {id}, onPosterClick} = this.props;
 
     evt.preventDefault();
     onPosterClick(id);

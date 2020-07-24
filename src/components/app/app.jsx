@@ -1,4 +1,5 @@
 import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {connect} from "react-redux";
 
@@ -6,6 +7,7 @@ import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import withTabs from "../../hocs/with-tabs.js";
 
+import {ActionCreator} from "../../reducer/state/state.js";
 import {getSelectedMovie} from "../../reducer/state/selectors";
 
 import reviews from "../../mocks/reviews.js";
@@ -18,18 +20,14 @@ export class App extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeMovie: null
-    };
 
     this._handleMovieTitleClick = this._handleMovieTitleClick.bind(this);
   }
 
   _handleMovieTitleClick(id) {
-    this.setState({
-      activeMovie: id
-    });
+    this.props.onMovieTitleClick(id);
   }
+
 
   _renderMain() {
     return (
@@ -41,7 +39,7 @@ export class App extends PureComponent {
   }
 
   _renderMoviePage() {
-    const {activeMovie} = this.state;
+    const {activeMovie} = this.props;
 
     if (!activeMovie) {
       return this._renderMain();
@@ -69,7 +67,7 @@ export class App extends PureComponent {
   }
 
   _renderApp() {
-    const {activeMovie} = this.state;
+    const {activeMovie} = this.props;
 
     if (!activeMovie) {
       return this._renderMain();
@@ -95,9 +93,35 @@ export class App extends PureComponent {
   }
 }
 
+App.propTypes = {
+  activeMovie: PropTypes.shape({
+    background: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    poster: PropTypes.string.isRequired,
+    posterBig: PropTypes.string.isRequired,
+    ratingScore: PropTypes.number.isRequired,
+    ratingCount: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
+    runTime: PropTypes.number.isRequired,
+  }),
+  onMovieTitleClick: PropTypes.func.isRequired,
+};
+
 
 const mapStateToProps = (state) => ({
   activeMovie: getSelectedMovie(state),
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  onMovieTitleClick(id) {
+    dispatch(ActionCreator.getActiveMovieId(id));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

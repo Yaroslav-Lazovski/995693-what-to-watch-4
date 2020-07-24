@@ -38,10 +38,12 @@ const ActionCreator = {
     payload: state
   }),
 
-  getActiveMovieId: (id) => ({
-    type: ActionType.GET_ACTIVE_MOVIE_ID,
-    payload: id
-  }),
+  getActiveMovieId: (id) => {
+    return {
+      type: ActionType.GET_ACTIVE_MOVIE_ID,
+      payload: id
+    };
+  },
 };
 
 
