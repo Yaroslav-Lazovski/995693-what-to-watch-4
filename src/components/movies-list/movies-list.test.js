@@ -30,6 +30,7 @@ describe(`MoviesList Snapshot`, () => {
           <MoviesList
             movies={movies}
             genre={GENRES.ALL}
+            showedMoviesNumber={8}
             onTitleClick={() => {}}
             onPosterClick={() => {}}
             onMouseEnter={() => {}}

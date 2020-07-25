@@ -5,8 +5,7 @@ import {connect} from "react-redux";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 import withVideoPlayer from "../../hocs/with-video-player.js";
 
-import {getCurrentGenre} from "../../reducer/state/selectors.js";
-import {GENRES} from "../../consts.js";
+import {getFilteredMovies, getShowedMovies} from "../../reducer/state/selectors.js";
 
 const SmallMovieCardWrapper = withVideoPlayer(SmallMovieCard);
 
@@ -16,23 +15,13 @@ export class MoviesList extends PureComponent {
   }
 
 
-  _getFilteredMovies(genre, allMovies) {
-    if (genre === GENRES.ALL) {
-      return allMovies;
-    }
-
-    const filteredMovies = allMovies.filter((movie) => movie.genre === genre);
-
-    return filteredMovies;
-  }
-
   render() {
-    const {movies, genre, onTitleClick, onPosterClick, onMouseEnter, onMouseLeave} = this.props;
-    const filteredMovies = this._getFilteredMovies(genre, movies);
+    const {movies, showedMoviesNumber, onTitleClick, onPosterClick, onMouseEnter, onMouseLeave} = this.props;
+    const showedMovies = movies.slice(0, showedMoviesNumber);
 
     return (
       <div className="catalog__movies-list">
-        {filteredMovies.map((movie, index) => (
+        {showedMovies.map((movie, index) => (
           <SmallMovieCardWrapper
             key={movie + index}
             movie={movie}
@@ -56,7 +45,7 @@ MoviesList.propTypes = {
         poster: PropTypes.string.isRequired,
       }).isRequired
   ).isRequired,
-  genre: PropTypes.string.isRequired,
+  showedMoviesNumber: PropTypes.number.isRequired,
   onTitleClick: PropTypes.func.isRequired,
   onPosterClick: PropTypes.func.isRequired,
   onMouseEnter: PropTypes.func.isRequired,
@@ -64,7 +53,8 @@ MoviesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  genre: getCurrentGenre(state),
+  movies: getFilteredMovies(state),
+  showedMoviesNumber: getShowedMovies(state),
 });
 
 

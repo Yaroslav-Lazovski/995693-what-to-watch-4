@@ -10,8 +10,8 @@ import withActiveCard from "../../hocs/with-active-card.js";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player.js";
 
 import {ActionCreator} from "../../reducer/state/state.js";
-import {getPromoMovie, getMovies} from "../../reducer/data/selectors";
-import {getShowedMovies, getPlayerState} from "../../reducer/state/selectors.js";
+import {getPromoMovie} from "../../reducer/data/selectors";
+import {getShowedMovies, getPlayerState, getFilteredMovies} from "../../reducer/state/selectors.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
@@ -30,8 +30,8 @@ export class Main extends PureComponent {
 
 
   render() {
-    const {movie: {year, title, genre, background, posterBig}, onTitleClick, onPosterClick, onFullScreenToggle, isPlayerActive} = this.props;
-    const showedMovies = this.props.movies.slice(0, this.props.showedMoviesNumber);
+    const {movie: {year, title, genre, background, posterBig}, movies, showedMoviesNumber, onTitleClick, onPosterClick, onFullScreenToggle, onShowMoreButtonClick, isPlayerActive} = this.props;
+    const showedMovies = movies.slice(0, showedMoviesNumber);
 
     return (
       isPlayerActive ? (
@@ -105,8 +105,8 @@ export class Main extends PureComponent {
                 onPosterClick={onPosterClick}
               />
 
-              {this.props.showedMoviesNumber < this.props.movies.length && <ShowMore
-                onShowMoreButtonClick={this.props.onShowMoreButtonClick}
+              {showedMoviesNumber < movies.length && <ShowMore
+                onShowMoreButtonClick={onShowMoreButtonClick}
               />}
             </section>
 
@@ -156,7 +156,7 @@ Main.propTypes = {
 
 const mapStateToProps = (state) => ({
   movie: getPromoMovie(state),
-  movies: getMovies(state),
+  movies: getFilteredMovies(state),
   showedMoviesNumber: getShowedMovies(state),
   isPlayerActive: getPlayerState(state),
 });

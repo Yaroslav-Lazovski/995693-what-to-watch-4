@@ -52,6 +52,7 @@ const store = mockStore({
   },
   [NameSpace.STATE]: {
     genre: GENRES.ALL,
+    showedMoviesNumber: 8,
   }
 });
 

@@ -32,6 +32,10 @@ const store = mockStore({
   }
 });
 
+beforeEach(() => {
+  store.clearActions();
+});
+
 describe(`Main e2e tests`, () => {
   it(`Should film title be clicked`, () => {
     const onTitleClick = jest.fn();
@@ -61,7 +65,7 @@ describe(`Main e2e tests`, () => {
 
 
   it(`Should film poster be clicked`, () => {
-    const onPosterClick = jest.fn();
+    const expectedActions = [{type: `GET_ACTIVE_MOVIE_ID`, payload: 1}];
 
     const mainComponent = mount(
         <Provider store={store}>
@@ -70,7 +74,7 @@ describe(`Main e2e tests`, () => {
             movies={movies}
             showedMoviesNumber={8}
             onTitleClick={() => {}}
-            onPosterClick={onPosterClick}
+            onPosterClick={() => {}}
             onShowMoreButtonClick={() => {}}
             onFullScreenToggle={() => {}}
             setFullScreenPlayer={() => {}}
@@ -79,10 +83,12 @@ describe(`Main e2e tests`, () => {
         </Provider>
     );
 
-    const moviePoster = mainComponent.find(`.small-movie-card`).last();
+    const moviePoster = mainComponent.find(`.small-movie-card`).first();
 
-    moviePoster.simulate(`click`, mockEvent);
+    moviePoster.simulate(`click`);
 
-    expect(onPosterClick.mock.calls.length).toBe(1);
+    const actions = store.getActions();
+
+    expect(actions).toEqual(expectedActions);
   });
 });
