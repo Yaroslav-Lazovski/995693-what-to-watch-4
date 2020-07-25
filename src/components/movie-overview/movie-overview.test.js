@@ -6,7 +6,7 @@ import MovieOverview from "./movie-overview.jsx";
 
 const movie = {
   director: `Movie director`,
-  starring: `Movie starring`,
+  starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
   ratingScore: 6.4,
   ratingCount: 240,
   description: `Movie description`

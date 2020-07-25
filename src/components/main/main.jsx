@@ -9,7 +9,9 @@ import ShowMore from "../show-more/show-more.jsx";
 import withActiveCard from "../../hocs/with-active-card.js";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player.js";
 
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/state/state.js";
+import {getPromoMovie} from "../../reducer/data/selectors";
+import {getShowedMovies, getPlayerState, getFilteredMovies} from "../../reducer/state/selectors.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
@@ -28,9 +30,8 @@ export class Main extends PureComponent {
 
 
   render() {
-    const {movie: {year, title, genre}, onTitleClick, onPosterClick, onFullScreenToggle, isPlayerActive} = this.props;
-    const showedMovies = this.props.movies.slice(0, this.props.showedMoviesNumber);
-
+    const {movie: {year, title, genre, background, posterBig}, movies, showedMoviesNumber, onTitleClick, onPosterClick, onFullScreenToggle, onShowMoreButtonClick, isPlayerActive} = this.props;
+    const showedMovies = movies.slice(0, showedMoviesNumber);
 
     return (
       isPlayerActive ? (
@@ -39,7 +40,7 @@ export class Main extends PureComponent {
         (<React.Fragment>
           <section className="movie-card">
             <div className="movie-card__bg">
-              <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+              <img src={background} alt={title} />
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -63,7 +64,7 @@ export class Main extends PureComponent {
             <div className="movie-card__wrap">
               <div className="movie-card__info">
                 <div className="movie-card__poster">
-                  <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+                  <img src={posterBig} alt={title} width="218" height="327" />
                 </div>
 
                 <div className="movie-card__desc">
@@ -104,8 +105,8 @@ export class Main extends PureComponent {
                 onPosterClick={onPosterClick}
               />
 
-              {this.props.showedMoviesNumber < this.props.movies.length && <ShowMore
-                onShowMoreButtonClick={this.props.onShowMoreButtonClick}
+              {showedMoviesNumber < movies.length && <ShowMore
+                onShowMoreButtonClick={onShowMoreButtonClick}
               />}
             </section>
 
@@ -134,6 +135,8 @@ Main.propTypes = {
     title: PropTypes.string.isRequired,
     year: PropTypes.number.isRequired,
     genre: PropTypes.string.isRequired,
+    background: PropTypes.string.isRequired,
+    posterBig: PropTypes.string.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -152,10 +155,10 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movie: state.movie,
-  movies: state.movies,
-  showedMoviesNumber: state.showedMoviesNumber,
-  isPlayerActive: state.isPlayerActive,
+  movie: getPromoMovie(state),
+  movies: getFilteredMovies(state),
+  showedMoviesNumber: getShowedMovies(state),
+  isPlayerActive: getPlayerState(state),
 });
 
 

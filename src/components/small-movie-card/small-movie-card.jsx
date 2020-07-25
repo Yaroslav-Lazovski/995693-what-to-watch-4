@@ -1,11 +1,15 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+
 import VideoPlayer from "../video-player/video-player.jsx";
+
+import {ActionCreator} from "../../reducer/state/state";
 
 const VIDEO_DELAY = 1000;
 
 
-class SmallMovieCard extends PureComponent {
+export class SmallMovieCard extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -23,14 +27,14 @@ class SmallMovieCard extends PureComponent {
   }
 
   _handleTitleClick(evt) {
-    const {movie: id, onTitleClick} = this.props;
+    const {movie: {id}, onTitleClick} = this.props;
 
     evt.preventDefault();
     onTitleClick(id);
   }
 
   _handlePosterClick(evt) {
-    const {movie: id, onPosterClick} = this.props;
+    const {movie: {id}, onPosterClick} = this.props;
 
     evt.preventDefault();
     onPosterClick(id);
@@ -38,7 +42,7 @@ class SmallMovieCard extends PureComponent {
 
 
   _handleMouseEnter() {
-    const {movie: id, onMouseEnter, onStartPlaying} = this.props;
+    const {movie: {id}, onMouseEnter, onStartPlaying} = this.props;
 
     this._videoDelay = setTimeout(onStartPlaying, VIDEO_DELAY);
 
@@ -110,4 +114,11 @@ SmallMovieCard.propTypes = {
   onStopPlaying: PropTypes.func.isRequired,
 };
 
-export default SmallMovieCard;
+
+const mapDispatchToProps = (dispatch) => ({
+  onPosterClick(id) {
+    dispatch(ActionCreator.getActiveMovieId(id));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(SmallMovieCard);

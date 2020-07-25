@@ -3,16 +3,21 @@ import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 
-import MoviesList from "./movies-list.jsx";
+import {MoviesList} from "./movies-list.jsx";
 
+import NameSpace from "../../reducer/name-space";
 import movies from "../../mocks/films.js";
 import {GENRES} from "../../consts.js";
 
 const mockStore = configureStore([]);
 
 const store = mockStore({
-  genre: GENRES.ALL,
-  movies
+  [NameSpace.DATA]: {
+    movies
+  },
+  [NameSpace.STATE]: {
+    genre: GENRES.ALL,
+  }
 });
 
 
@@ -24,6 +29,8 @@ describe(`MoviesList Snapshot`, () => {
         <Provider store={store}>
           <MoviesList
             movies={movies}
+            genre={GENRES.ALL}
+            showedMoviesNumber={8}
             onTitleClick={() => {}}
             onPosterClick={() => {}}
             onMouseEnter={() => {}}

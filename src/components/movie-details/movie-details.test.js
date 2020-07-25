@@ -8,8 +8,8 @@ const movie = {
   genre: `Drama`,
   year: 2014,
   director: `Movie director`,
-  starring: `Movie starring`,
-  runTime: `1h 30m`
+  starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
+  runTime: 120
 };
 
 

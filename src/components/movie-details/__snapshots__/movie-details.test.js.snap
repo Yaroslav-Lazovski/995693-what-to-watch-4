@@ -32,7 +32,18 @@ exports[`MovieDetails Snapshot Should MovieDetails render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        Movie starring
+        Bill Murray
+         
+        <br />
+        Edward Norton
+         
+        <br />
+        Jude Law
+         
+        <br />
+        Willem Dafoe
+         
+        <br />
       </span>
     </p>
   </div>
@@ -50,7 +61,7 @@ exports[`MovieDetails Snapshot Should MovieDetails render correctly 1`] = `
       <span
         className="movie-card__details-value"
       >
-        1h 30m
+        120
       </span>
     </p>
     <p

@@ -4,8 +4,9 @@ import Adapter from "enzyme-adapter-react-16";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
 
-import Main from "./main.jsx";
+import {Main} from "./main.jsx";
 
+import NameSpace from "../../reducer/name-space";
 import movies from "../../mocks/films.js";
 import movie from "../../mocks/movie.js";
 import {GENRES} from "../../consts.js";
@@ -20,11 +21,19 @@ const mockEvent = {
 
 const mockStore = configureStore([]);
 const store = mockStore({
-  genre: GENRES.ALL,
-  movie,
-  movies,
-  showedMoviesNumber: 8,
-  isPlayerActive: false,
+  [NameSpace.DATA]: {
+    movies,
+    promoMovie: movie
+  },
+  [NameSpace.STATE]: {
+    genre: GENRES.ALL,
+    showedMoviesNumber: 8,
+    isPlayerActive: false
+  }
+});
+
+beforeEach(() => {
+  store.clearActions();
 });
 
 describe(`Main e2e tests`, () => {
@@ -34,12 +43,15 @@ describe(`Main e2e tests`, () => {
     const mainComponent = mount(
         <Provider store={store}>
           <Main
-            title={`The Grand Budapest Hotel`}
-            genre={`Drama`}
-            year={2014}
+            movie={movie}
             movies={movies}
+            showedMoviesNumber={8}
             onTitleClick={onTitleClick}
             onPosterClick={() => {}}
+            onShowMoreButtonClick={() => {}}
+            onFullScreenToggle={() => {}}
+            setFullScreenPlayer={() => {}}
+            isPlayerActive={false}
           />
         </Provider>
     );
@@ -53,25 +65,30 @@ describe(`Main e2e tests`, () => {
 
 
   it(`Should film poster be clicked`, () => {
-    const onPosterClick = jest.fn();
+    const expectedActions = [{type: `GET_ACTIVE_MOVIE_ID`, payload: 1}];
 
     const mainComponent = mount(
         <Provider store={store}>
           <Main
-            title={`The Grand Budapest Hotel`}
-            genre={`Drama`}
-            year={2014}
+            movie={movie}
             movies={movies}
+            showedMoviesNumber={8}
             onTitleClick={() => {}}
-            onPosterClick={onPosterClick}
+            onPosterClick={() => {}}
+            onShowMoreButtonClick={() => {}}
+            onFullScreenToggle={() => {}}
+            setFullScreenPlayer={() => {}}
+            isPlayerActive={false}
           />
         </Provider>
     );
 
     const moviePoster = mainComponent.find(`.small-movie-card`).first();
 
-    moviePoster.simulate(`click`, mockEvent);
+    moviePoster.simulate(`click`);
 
-    expect(onPosterClick.mock.calls.length).toBe(1);
+    const actions = store.getActions();
+
+    expect(actions).toEqual(expectedActions);
   });
 });

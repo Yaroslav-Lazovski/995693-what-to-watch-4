@@ -2,7 +2,9 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/state/state.js";
+import {getMovies} from "../../reducer/data/selectors.js";
+import {getCurrentGenre} from "../../reducer/state/selectors.js";
 
 
 const MAX_NUMBER_GENRES = 10;
@@ -68,8 +70,8 @@ GenresList.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  genre: state.genre,
-  movies: state.movies
+  genre: getCurrentGenre(state),
+  movies: getMovies(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
