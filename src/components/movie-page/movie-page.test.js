@@ -11,6 +11,7 @@ import {GENRES} from "../../consts.js";
 
 
 const movie = {
+  id: 1,
   background: `img/movie.jpg`,
   title: `The movie`,
   genre: `Drama`,
@@ -63,18 +64,7 @@ describe(`MoviePage Snapshot`, () => {
     .create(
         <Provider store={store}>
           <MoviePage
-            background={movie.background}
-            title={movie.title}
-            genre={movie.genre}
-            year={movie.year}
-            poster={movie.poster}
-            posterBig={movie.posterBig}
-            ratingScore={movie.ratingScore}
-            ratingCount={movie.ratingCount}
-            description={movie.description}
-            director={movie.director}
-            starring={movie.starring}
-            runTime={movie.runTime}
+            movie={movie}
             movies={movies}
             reviews={reviews}
             activeTab={activeTab}

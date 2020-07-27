@@ -11,6 +11,7 @@ import withActiveCard from "../../hocs/with-active-card.js";
 import {getMovies} from "../../reducer/data/selectors.js";
 import {TabType} from "../../consts.js";
 import {getSimilarMovies} from "../../utils.js";
+import {getSelectedMovie} from "../../reducer/state/selectors.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 
@@ -23,7 +24,7 @@ export class MoviePage extends PureComponent {
   }
 
   _renderActiveTab() {
-    const {genre, year, ratingScore, ratingCount, description, director, starring, runTime, reviews, activeTab} = this.props;
+    const {movie: {genre, year, ratingScore, ratingCount, description, director, starring, runTime}, reviews, activeTab} = this.props;
 
     switch (activeTab) {
       case TabType.OVERVIEW:
@@ -55,7 +56,7 @@ export class MoviePage extends PureComponent {
   }
 
   render() {
-    const {background, title, genre, year, posterBig, renderTabs, onTitleClick, onPosterClick} = this.props;
+    const {movie: {background, title, genre, year, posterBig}, renderTabs, onTitleClick, onPosterClick} = this.props;
     const similarMovies = getSimilarMovies(this.props.movies, genre);
 
     return (
@@ -156,20 +157,22 @@ export class MoviePage extends PureComponent {
 
 
 MoviePage.propTypes = {
-  background: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.number.isRequired,
-  poster: PropTypes.string.isRequired,
-  posterBig: PropTypes.string.isRequired,
-  ratingScore: PropTypes.number.isRequired,
-  ratingCount: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
-  director: PropTypes.string.isRequired,
-  starring: PropTypes.arrayOf(
-      PropTypes.string.isRequired
-  ).isRequired,
-  runTime: PropTypes.number.isRequired,
+  movie: PropTypes.shape({
+    background: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    year: PropTypes.number.isRequired,
+    poster: PropTypes.string.isRequired,
+    posterBig: PropTypes.string.isRequired,
+    ratingScore: PropTypes.number.isRequired,
+    ratingCount: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(
+        PropTypes.string.isRequired
+    ).isRequired,
+    runTime: PropTypes.number.isRequired,
+  }),
   movies: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -193,6 +196,7 @@ MoviePage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  movie: getSelectedMovie(state),
   movies: getMovies(state)
 });
 

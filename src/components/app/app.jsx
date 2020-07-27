@@ -39,26 +39,8 @@ export class App extends PureComponent {
   }
 
   _renderMoviePage() {
-    const {activeMovie} = this.props;
-
-    if (!activeMovie) {
-      return this._renderMain();
-    }
-
     return (
       <MoviePageWrapped
-        background={activeMovie.background}
-        title={activeMovie.title}
-        genre={activeMovie.genre}
-        year={activeMovie.year}
-        poster={activeMovie.poster}
-        posterBig={activeMovie.posterBig}
-        ratingScore={activeMovie.ratingScore}
-        ratingCount={activeMovie.ratingCount}
-        description={activeMovie.description}
-        director={activeMovie.director}
-        starring={activeMovie.starring}
-        runTime={activeMovie.runTime}
         reviews={reviews}
         onTitleClick={this._handleMovieTitleClick}
         onPosterClick={this._handleMovieTitleClick}
