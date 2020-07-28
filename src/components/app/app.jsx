@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import SignIn from "../sign-in/sign-in.jsx";
 import withTabs from "../../hocs/with-tabs.js";
 
 import {ActionCreator} from "../../reducer/state/state.js";
@@ -68,6 +69,11 @@ export class App extends PureComponent {
           </Route>
           <Route exact path="/dev-film">
             {this._renderMoviePage()}
+          </Route>
+          <Route exact path="/auth">
+            <SignIn
+              onSubmit={() => {}}
+            />
           </Route>
         </Switch>
       </BrowserRouter>
