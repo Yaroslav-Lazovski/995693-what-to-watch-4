@@ -9,7 +9,7 @@ import SignIn from "../sign-in/sign-in.jsx";
 import withTabs from "../../hocs/with-tabs.js";
 
 import {ActionCreator} from "../../reducer/state/state.js";
-import {getSelectedMovie} from "../../reducer/state/selectors";
+import {getActiveMovieId} from "../../reducer/state/selectors.js";
 
 import reviews from "../../mocks/reviews.js";
 
@@ -50,9 +50,9 @@ export class App extends PureComponent {
   }
 
   _renderApp() {
-    const {activeMovie} = this.props;
+    const {ActiveMovieId} = this.props;
 
-    if (!activeMovie) {
+    if (!ActiveMovieId) {
       return this._renderMain();
     }
 
@@ -82,28 +82,13 @@ export class App extends PureComponent {
 }
 
 App.propTypes = {
-  activeMovie: PropTypes.shape({
-    background: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    poster: PropTypes.string.isRequired,
-    posterBig: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(
-        PropTypes.string.isRequired
-    ).isRequired,
-    runTime: PropTypes.number.isRequired,
-  }),
+  ActiveMovieId: PropTypes.number,
   onMovieTitleClick: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
-  activeMovie: getSelectedMovie(state),
+  ActiveMovieId: getActiveMovieId(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
