@@ -10,6 +10,7 @@ import withTabs from "../../hocs/with-tabs.js";
 
 import {ActionCreator} from "../../reducer/state/state.js";
 import {getActiveMovieId} from "../../reducer/state/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
 
 import reviews from "../../mocks/reviews.js";
 
@@ -61,6 +62,8 @@ export class App extends PureComponent {
 
 
   render() {
+    const {login} = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
@@ -72,7 +75,7 @@ export class App extends PureComponent {
           </Route>
           <Route exact path="/auth">
             <SignIn
-              onSubmit={() => {}}
+              onSubmit={login}
             />
           </Route>
         </Switch>
@@ -83,6 +86,7 @@ export class App extends PureComponent {
 
 App.propTypes = {
   ActiveMovieId: PropTypes.number,
+  login: PropTypes.func.isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
 };
 
@@ -94,6 +98,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onMovieTitleClick(id) {
     dispatch(ActionCreator.getActiveMovieId(id));
+  },
+
+  login(authData) {
+    dispatch(UserOperation.login(authData));
   },
 });
 

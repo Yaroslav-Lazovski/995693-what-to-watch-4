@@ -7,7 +7,7 @@ import {MoviePage} from "./movie-page.jsx";
 
 import NameSpace from "../../reducer/name-space";
 import movies from "../../mocks/films.js";
-import {GENRES} from "../../consts.js";
+import {GENRES, AuthorizationStatus} from "../../consts.js";
 
 
 const movie = {
@@ -54,6 +54,9 @@ const store = mockStore({
   [NameSpace.STATE]: {
     genre: GENRES.ALL,
     showedMoviesNumber: 8,
+  },
+  [NameSpace.USER]: {
+    authorizationStatus: AuthorizationStatus.NO_AUTH
   }
 });
 

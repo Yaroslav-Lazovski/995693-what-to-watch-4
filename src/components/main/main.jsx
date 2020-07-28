@@ -6,6 +6,7 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import FullScreenPlayer from "../full-screen-player/full-screen-player.jsx";
 import ShowMore from "../show-more/show-more.jsx";
+import Header from "../header/header.jsx";
 import withActiveCard from "../../hocs/with-active-card.js";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player.js";
 
@@ -45,21 +46,7 @@ export class Main extends PureComponent {
 
             <h1 className="visually-hidden">WTW</h1>
 
-            <header className="page-header movie-card__head">
-              <div className="logo">
-                <a className="logo__link">
-                  <span className="logo__letter logo__letter--1">W</span>
-                  <span className="logo__letter logo__letter--2">T</span>
-                  <span className="logo__letter logo__letter--3">W</span>
-                </a>
-              </div>
-
-              <div className="user-block">
-                <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-                </div>
-              </div>
-            </header>
+            <Header />
 
             <div className="movie-card__wrap">
               <div className="movie-card__info">

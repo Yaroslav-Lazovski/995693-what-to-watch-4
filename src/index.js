@@ -12,7 +12,7 @@ import {Operation as DataOperation} from "./reducer/data/data.js";
 import {Operation as UserOperation, ActionCreator} from "./reducer/user/user.js";
 import {createAPI} from "./api.js";
 
-import {AuthorizationStatus} from "./consts";
+import {AuthorizationStatus} from "./consts.js";
 
 
 const onUnauthorized = () => {
