@@ -54,4 +54,9 @@ export const TabType = {
   REVIEWS: `Reviews`
 };
 
+export const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
 export const MAX_MOVIES_IN_LIST = 8;

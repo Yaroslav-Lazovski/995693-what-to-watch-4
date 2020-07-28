@@ -7,10 +7,11 @@ import {MoviePage} from "./movie-page.jsx";
 
 import NameSpace from "../../reducer/name-space";
 import movies from "../../mocks/films.js";
-import {GENRES} from "../../consts.js";
+import {GENRES, AuthorizationStatus} from "../../consts.js";
 
 
 const movie = {
+  id: 1,
   background: `img/movie.jpg`,
   title: `The movie`,
   genre: `Drama`,
@@ -53,6 +54,9 @@ const store = mockStore({
   [NameSpace.STATE]: {
     genre: GENRES.ALL,
     showedMoviesNumber: 8,
+  },
+  [NameSpace.USER]: {
+    authorizationStatus: AuthorizationStatus.NO_AUTH
   }
 });
 
@@ -63,18 +67,7 @@ describe(`MoviePage Snapshot`, () => {
     .create(
         <Provider store={store}>
           <MoviePage
-            background={movie.background}
-            title={movie.title}
-            genre={movie.genre}
-            year={movie.year}
-            poster={movie.poster}
-            posterBig={movie.posterBig}
-            ratingScore={movie.ratingScore}
-            ratingCount={movie.ratingCount}
-            description={movie.description}
-            director={movie.director}
-            starring={movie.starring}
-            runTime={movie.runTime}
+            movie={movie}
             movies={movies}
             reviews={reviews}
             activeTab={activeTab}

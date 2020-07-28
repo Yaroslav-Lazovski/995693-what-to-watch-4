@@ -9,7 +9,7 @@ import {Main} from "./main.jsx";
 import NameSpace from "../../reducer/name-space";
 import movies from "../../mocks/films.js";
 import movie from "../../mocks/movie.js";
-import {GENRES} from "../../consts.js";
+import {GENRES, AuthorizationStatus} from "../../consts.js";
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -29,7 +29,11 @@ const store = mockStore({
     genre: GENRES.ALL,
     showedMoviesNumber: 8,
     isPlayerActive: false
+  },
+  [NameSpace.USER]: {
+    authorizationStatus: AuthorizationStatus.NO_AUTH
   }
+
 });
 
 beforeEach(() => {

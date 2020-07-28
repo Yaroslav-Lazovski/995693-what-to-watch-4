@@ -71,7 +71,7 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.GET_ACTIVE_MOVIE_ID:
       return extend(state, {
-        activeMovie: action.payload
+        activeMovieId: action.payload
       });
 
     default: return state;

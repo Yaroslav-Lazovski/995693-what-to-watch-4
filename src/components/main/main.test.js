@@ -6,7 +6,7 @@ import {Provider} from "react-redux";
 import {Main} from "./main.jsx";
 
 import NameSpace from "../../reducer/name-space";
-import {GENRES} from "../../consts.js";
+import {GENRES, AuthorizationStatus} from "../../consts.js";
 import movies from "../../mocks/films.js";
 import movie from "../../mocks/movie.js";
 
@@ -23,6 +23,9 @@ describe(`Main Snapshot`, () => {
         genre: GENRES.ALL,
         showedMoviesNumber: 8,
         isPlayerActive: false
+      },
+      [NameSpace.USER]: {
+        authorizationStatus: AuthorizationStatus.NO_AUTH
       }
     });
 
