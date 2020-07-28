@@ -1,7 +1,10 @@
 import React, {PureComponent, createRef} from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
-class SignIn extends PureComponent {
+import {getErrorAuthorizationStatus} from "../../reducer/user/selectors.js";
+
+export class SignIn extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -9,6 +12,20 @@ class SignIn extends PureComponent {
     this.passwordRef = createRef();
 
     this._handleSubmit = this._handleSubmit.bind(this);
+  }
+
+  _renderErrorMessage() {
+    const {isErrorAuth} = this.props;
+
+    if (isErrorAuth) {
+      return (
+        <div className="sign-in__message">
+          <p>We can’t recognize this email <br/> and password combination. Please try again.</p>
+        </div>
+      );
+    }
+
+    return null;
   }
 
   _handleSubmit(evt) {
@@ -37,6 +54,7 @@ class SignIn extends PureComponent {
         </header>
         <div className="sign-in user-page__content">
           <form action="#" className="sign-in__form" onSubmit={this._handleSubmit}>
+            {this._renderErrorMessage()}
             <div className="sign-in__fields">
               <div className="sign-in__field">
                 <input
@@ -86,7 +104,13 @@ class SignIn extends PureComponent {
 }
 
 SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
+  isErrorAuth: PropTypes.bool.isRequired
 };
 
-export default SignIn;
+const mapStateToProps = (state) => ({
+  isErrorAuth: getErrorAuthorizationStatus(state)
+});
+
+
+export default connect(mapStateToProps)(SignIn);
