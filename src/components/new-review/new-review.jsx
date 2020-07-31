@@ -13,7 +13,7 @@ const RATING_COUNT = 5;
 
 
 export const NewReview = (props) => {
-  const {movie: {title, background, poster}} = props;
+  const {movie: {title, background, poster}, onChangeHandler, onSubmitHandler} = props;
 
   const getRatingItem = (item, index) => {
     const id = `star-${index + 1}`;
@@ -21,7 +21,7 @@ export const NewReview = (props) => {
     return (
       <Fragment key={item + id}>
         <input
-          onChange={() => {}}
+          onChange={onChangeHandler}
           className="rating__input"
           id={id}
           type="radio"
@@ -81,7 +81,7 @@ export const NewReview = (props) => {
           </div>
           <div className="add-review__text">
             <textarea
-              onChange={() => {}}
+              onChange={onSubmitHandler}
               className="add-review__textarea"
               name="review-text"
               id="review-text"
@@ -105,7 +105,9 @@ NewReview.propTypes = {
     title: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  onChangeHandler: PropTypes.func.isRequired,
+  onSubmitHandler: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

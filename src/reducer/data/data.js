@@ -1,5 +1,6 @@
 import {extend} from "../../utils";
 import {movieAdapter, moviesAdapter} from "../../adapters/movie-adapter";
+import {ActionCreator as ActionCreatorState} from "../state/state";
 
 const initialState = {
   movies: [],
@@ -55,6 +56,21 @@ const Operation = {
         dispatch(ActionCreator.loadMovieComments(response.data));
       });
   },
+
+  postComment: (id, comment) => (dispatch, getState, api) => {
+    return api.post(`/comments/${id}`, {
+      rating: comment.rating,
+      comment: comment.comment
+    })
+      .then(() => {
+        dispatch(ActionCreatorState.setFormDisabled(false));
+      })
+      .catch((err) => {
+        dispatch(ActionCreatorState.setFormDisabled(false));
+
+        throw err;
+      });
+  }
 };
 
 const reducer = (state = initialState, action) => {

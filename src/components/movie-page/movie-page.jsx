@@ -10,9 +10,10 @@ import Header from "../header/header.jsx";
 import withActiveCard from "../../hocs/with-active-card.js";
 
 import {getMovies} from "../../reducer/data/selectors.js";
-import {TabType} from "../../consts.js";
+import {TabType, AuthorizationStatus} from "../../consts.js";
 import {getSimilarMovies} from "../../utils.js";
 import {getSelectedMovie} from "../../reducer/state/selectors.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 
@@ -57,7 +58,7 @@ export class MoviePage extends PureComponent {
   }
 
   render() {
-    const {movie: {background, title, genre, year, posterBig}, renderTabs, onTitleClick, onPosterClick} = this.props;
+    const {movie: {background, title, genre, year, posterBig}, renderTabs, authorizationStatus, onTitleClick, onPosterClick} = this.props;
     const similarMovies = getSimilarMovies(this.props.movies, genre);
 
     return (
@@ -93,7 +94,10 @@ export class MoviePage extends PureComponent {
                     </svg>
                     <span>My list</span>
                   </button>
-                  <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                  {authorizationStatus === AuthorizationStatus.AUTH ?
+                    <a href="add-review.html" className="btn movie-card__button">Add review</a>
+                    : null
+                  }
                 </div>
               </div>
             </div>
@@ -180,11 +184,13 @@ MoviePage.propTypes = {
   onPosterClick: PropTypes.func.isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   movie: getSelectedMovie(state),
-  movies: getMovies(state)
+  movies: getMovies(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 

@@ -71,6 +71,7 @@ describe(`MoviePage Snapshot`, () => {
             movies={movies}
             reviews={reviews}
             activeTab={activeTab}
+            authorizationStatus={AuthorizationStatus.NO_AUTH}
             renderTabs={() => {}}
             onTitleClick={() => {}}
             onPosterClick={() => {}}

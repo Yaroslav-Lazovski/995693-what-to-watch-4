@@ -13,6 +13,8 @@ it(`AddReview component render correctly`, () => {
   const tree = renderer.create(
       <NewReview
         movie={movie}
+        onChangeHandler={() => {}}
+        onSubmitHandler={() => {}}
       />
   ).toJSON();
 

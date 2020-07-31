@@ -13,6 +13,8 @@ export const getPlayerState = (state) => state[NameSpace.STATE].isPlayerActive;
 
 export const getActiveMovieId = (state) => state[NameSpace.STATE].activeMovieId;
 
+export const getFormState = (state) => state[NameSpace.STATE].isFormDisabled;
+
 export const getSelectedMovie = createSelector(
     getMovies,
     getActiveMovieId,
