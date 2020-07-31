@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
+import NewReview from '../new-review/new-review.jsx';
 import withTabs from "../../hocs/with-tabs.js";
 
 import {ActionCreator} from "../../reducer/state/state.js";
@@ -77,6 +78,9 @@ export class App extends PureComponent {
             <SignIn
               onSubmit={login}
             />
+          </Route>
+          <Route exact path={`/dev-review`}>
+            <NewReview />
           </Route>
         </Switch>
       </BrowserRouter>
