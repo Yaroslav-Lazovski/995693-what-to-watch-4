@@ -3,12 +3,14 @@ import {movieAdapter, moviesAdapter} from "../../adapters/movie-adapter";
 
 const initialState = {
   movies: [],
-  promoMovie: {}
+  promoMovie: {},
+  reviews: []
 };
 
 const ActionType = {
   LOAD_MOVIES: `LOAD_MOVIES`,
-  LOAD_PROMO_MOVIE: `LOAD_PROMO_MOVIE`
+  LOAD_PROMO_MOVIE: `LOAD_PROMO_MOVIE`,
+  LOAD_MOVIE_COMMENTS: `LOAD_COMMENTS`
 };
 
 const ActionCreator = {
@@ -22,6 +24,12 @@ const ActionCreator = {
     return {
       type: ActionType.LOAD_PROMO_MOVIE,
       payload: promoMovie
+    };
+  },
+  loadMovieComments: (comments) => {
+    return {
+      type: ActionType.LOAD_MOVIE_COMMENTS,
+      payload: comments
     };
   }
 };
@@ -39,7 +47,14 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.loadPromoMovie(movieAdapter(response.data)));
       });
-  }
+  },
+
+  loadMovieComments: (filmId) => (dispatch, getState, api) => {
+    return api.get(`/comments/${filmId}`)
+      .then((response) => {
+        dispatch(ActionCreator.loadMovieComments(response.data));
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -52,6 +67,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_PROMO_MOVIE:
       return extend(state, {
         promoMovie: action.payload
+      });
+
+    case ActionType.LOAD_MOVIE_COMMENTS:
+      return extend(state, {
+        reviews: action.payload
       });
   }
 

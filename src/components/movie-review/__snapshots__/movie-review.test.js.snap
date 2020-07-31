@@ -10,7 +10,7 @@ exports[`MovieReview Snapshot Should MovieReview render correctly 1`] = `
     <p
       className="review__text"
     >
-      Text
+      Comment
     </p>
     <footer
       className="review__details"
@@ -18,11 +18,11 @@ exports[`MovieReview Snapshot Should MovieReview render correctly 1`] = `
       <cite
         className="review__author"
       >
-        Author
+        User
       </cite>
       <time
         className="review__date"
-        dateTime="2016-12-24"
+        dateTime="December 24, 2016"
       >
         December 24, 2016
       </time>
