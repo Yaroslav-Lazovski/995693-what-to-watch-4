@@ -10,6 +10,7 @@ it(`Returns initial state at application start`, ()=>{
     showedMoviesNumber: 8,
     isPlayerActive: false,
     activeMovie: -1,
+    isFormDisabled: false
   });
 });
 

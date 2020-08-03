@@ -12,14 +12,14 @@ export const Header = (props) => {
   const renderUserBlock = () => {
     if (authorizationStatus === AuthorizationStatus.AUTH) {
       return (
-        <a href="sign-in.html" className="user-block__link">Sign in</a>
+        <div className="user-block__avatar">
+          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+        </div>
       );
     }
 
     return (
-      <div className="user-block__avatar">
-        <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-      </div>
+      <a href="sign-in.html" className="user-block__link">Sign in</a>
     );
   };
 

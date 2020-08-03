@@ -6,7 +6,9 @@ import {connect} from "react-redux";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
+import NewReview from '../new-review/new-review.jsx';
 import withTabs from "../../hocs/with-tabs.js";
+import withReview from "../../hocs/with-review.js";
 
 import {ActionCreator} from "../../reducer/state/state.js";
 import {getActiveMovieId} from "../../reducer/state/selectors.js";
@@ -16,6 +18,7 @@ import reviews from "../../mocks/reviews.js";
 
 
 const MoviePageWrapped = withTabs(MoviePage);
+const NewReviewWrapped = withReview(NewReview);
 
 
 export class App extends PureComponent {
@@ -51,9 +54,9 @@ export class App extends PureComponent {
   }
 
   _renderApp() {
-    const {ActiveMovieId} = this.props;
+    const {activeMovieId} = this.props;
 
-    if (!ActiveMovieId) {
+    if (!activeMovieId) {
       return this._renderMain();
     }
 
@@ -78,6 +81,9 @@ export class App extends PureComponent {
               onSubmit={login}
             />
           </Route>
+          <Route exact path={`/dev-review`}>
+            <NewReviewWrapped />
+          </Route>
         </Switch>
       </BrowserRouter>
     );
@@ -85,14 +91,14 @@ export class App extends PureComponent {
 }
 
 App.propTypes = {
-  ActiveMovieId: PropTypes.number,
+  activeMovieId: PropTypes.number,
   login: PropTypes.func.isRequired,
   onMovieTitleClick: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
-  ActiveMovieId: getActiveMovieId(state),
+  activeMovieId: getActiveMovieId(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
