@@ -2,7 +2,9 @@ import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import {Router} from "react-router-dom";
 
+import history from "../../history";
 import {Main} from "./main.jsx";
 
 import NameSpace from "../../reducer/name-space";
@@ -31,19 +33,18 @@ describe(`Main Snapshot`, () => {
 
     const tree = renderer
       .create(
-          <Provider store={store}>
-            <Main
-              movie={movie}
-              movies={movies}
-              showedMoviesNumber={8}
-              onTitleClick={() => {}}
-              onPosterClick={() => {}}
-              onShowMoreButtonClick={() => {}}
-              onFullScreenToggle={() => {}}
-              setFullScreenPlayer={() => {}}
-              isPlayerActive={false}
-            />)
-          </Provider>, {
+          <Router
+            history={history}
+          >
+            <Provider store={store}>
+              <Main
+                movie={movie}
+                movies={movies}
+                showedMoviesNumber={8}
+                onShowMoreButtonClick={() => {}}
+              />)
+            </Provider>
+          </Router>, {
             createNodeMock: ()=>{
               return {};
             }

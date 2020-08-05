@@ -3,20 +3,16 @@ import {GENRES, MAX_MOVIES_IN_LIST} from "../../consts.js";
 
 
 const initialState = {
+  activeMovie: {},
   genre: GENRES.ALL,
   showedMoviesNumber: MAX_MOVIES_IN_LIST,
-  isPlayerActive: false,
-  activeMovie: -1,
-  isFormDisabled: false,
 };
 
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   SHOW_MORE_MOVIES: `SHOW_MORE_MOVIES`,
   RESET_SHOWED_MOVIES: `RESET_SHOWED_MOVIES`,
-  SET_FULLSCREEN_PLAYER: `SET_FULLSCREEN_PLAYER`,
-  GET_ACTIVE_MOVIE_ID: `GET_ACTIVE_MOVIE_ID`,
-  SET_FORM_DISABLED: `SET_FORM_DISABLED`
+  GET_ACTIVE_MOVIE: `GET_ACTIVE_MOVIE`,
 };
 
 const ActionCreator = {
@@ -35,22 +31,12 @@ const ActionCreator = {
     payload: MAX_MOVIES_IN_LIST
   }),
 
-  setFullScreenPlayer: (state) => ({
-    type: ActionType.SET_FULLSCREEN_PLAYER,
-    payload: state
-  }),
-
-  getActiveMovieId: (id) => {
+  getActiveMovie: (movie) => {
     return {
-      type: ActionType.GET_ACTIVE_MOVIE_ID,
-      payload: id
+      type: ActionType.GET_ACTIVE_MOVIE,
+      payload: movie
     };
   },
-
-  setFormDisabled: (bool) => ({
-    type: ActionType.SET_FORM_DISABLED,
-    payload: bool
-  })
 };
 
 
@@ -71,19 +57,9 @@ const reducer = (state = initialState, action) => {
         showedMoviesNumber: action.payload
       });
 
-    case ActionType.SET_FULLSCREEN_PLAYER:
+    case ActionType.GET_ACTIVE_MOVIE:
       return extend(state, {
-        isPlayerActive: action.payload
-      });
-
-    case ActionType.GET_ACTIVE_MOVIE_ID:
-      return extend(state, {
-        activeMovieId: action.payload
-      });
-
-    case ActionType.SET_FORM_DISABLED:
-      return extend(state, {
-        isFormDisabled: action.payload
+        activeMovie: action.payload
       });
 
     default: return state;

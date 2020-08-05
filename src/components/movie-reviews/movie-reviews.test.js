@@ -27,13 +27,17 @@ const reviews = [
   },
 ];
 
+const movie = {
+  id: 1
+};
+
 
 describe(`MovieReviews Snapshot`, () => {
   it(`Should MovieReviews render correctly`, () => {
     const tree = renderer
       .create(<MovieReviews
         reviews={reviews}
-        activeMovieId={1}
+        movie={movie}
         getMovieComments={() => {}}
       />)
       .toJSON();

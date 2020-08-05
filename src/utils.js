@@ -1,9 +1,8 @@
 import {MovieRating, RatingType} from "../src/consts.js";
 
-const MAX_SIMILAR_MOVIES = 4;
 const MAX_NUMBER_GENRES = 10;
 
-export const formatRating = (rating) => rating.toString().replace(`.`, `,`);
+export const getformatRating = (rating) => rating.toString().replace(`.`, `,`);
 
 export const getRatingLevel = (rating) => {
   let textRating;
@@ -23,10 +22,6 @@ export const getRatingLevel = (rating) => {
   return textRating;
 };
 
-export const getSimilarMovies = (movies, genre) => {
-  return movies.filter((movie) => movie.genre === genre).slice(0, MAX_SIMILAR_MOVIES);
-};
-
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
@@ -42,4 +37,15 @@ export const getGenresList = (movies) => {
 
   const genresList = Array.from(genres).slice(0, MAX_NUMBER_GENRES);
   return genresList;
+};
+
+export const getFormatDate = (date, options) => {
+  return new Intl.DateTimeFormat(`en-US`, options).format(new Date(date));
+};
+
+export const getFormatInnerDate = (date, options) => {
+  const newDate = new Intl.DateTimeFormat(`en-US`, options).formatToParts(new Date(date));
+  const [{value: day},, {value: month},, {value: year}] = newDate;
+
+  return `${year}-${month}-${day}`;
 };

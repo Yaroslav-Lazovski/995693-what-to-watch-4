@@ -16,7 +16,7 @@ export class MoviesList extends PureComponent {
 
 
   render() {
-    const {movies, showedMoviesNumber, onTitleClick, onPosterClick, onMouseEnter, onMouseLeave} = this.props;
+    const {movies, showedMoviesNumber, onMouseEnter, onMouseLeave} = this.props;
     const showedMovies = movies.slice(0, showedMoviesNumber);
 
     return (
@@ -25,8 +25,6 @@ export class MoviesList extends PureComponent {
           <SmallMovieCardWrapper
             key={movie + index}
             movie={movie}
-            onTitleClick={onTitleClick}
-            onPosterClick={onPosterClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           />
@@ -46,8 +44,6 @@ MoviesList.propTypes = {
       }).isRequired
   ).isRequired,
   showedMoviesNumber: PropTypes.number.isRequired,
-  onTitleClick: PropTypes.func.isRequired,
-  onPosterClick: PropTypes.func.isRequired,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
 };

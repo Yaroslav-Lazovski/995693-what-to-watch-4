@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
 import {Operation as DataOperations} from "../reducer/data/data.js";
-import {getActiveMovieId} from "../reducer/state/selectors";
+import {getActiveMovie} from "../reducer/state/selectors";
 
 const withReview = (Component) => {
   class WithReview extends PureComponent {
@@ -11,16 +11,17 @@ const withReview = (Component) => {
       super(props);
 
       this.state = {
-        rating: 1,
+        rating: 0,
         comment: ``,
       };
 
       this._handleSubmit = this._handleSubmit.bind(this);
       this._handleRatingChange = this._handleRatingChange.bind(this);
+      this._handleCommentChange = this._handleCommentChange.bind(this);
     }
 
     _handleRatingChange(evt) {
-      const value = evt.target;
+      const {name, value} = evt.target;
 
       this.setState({
         [name]: value,
@@ -28,33 +29,47 @@ const withReview = (Component) => {
     }
 
     _handleSubmit(evt) {
-      const {onSubmit, activeMovieId} = this.props;
+      const {onSubmit, movie} = this.props;
       const {rating, comment} = this.state;
 
       evt.preventDefault();
 
-      onSubmit(activeMovieId, {
+      onSubmit(movie.id, {
         rating,
         comment
       });
     }
 
+    _handleCommentChange(evt) {
+      const comment = evt.target.value;
+
+      this.setState({
+        comment,
+      });
+    }
+
     render() {
+      const {rating} = this.state;
+
       return <Component
         {...this.props}
-        onChangeHandler={this._handleRatingChange}
-        onSubmitHandler={this._handleSubmit}
+        rating={rating}
+        onRatingChange={this._handleRatingChange}
+        onCommentChange={this._handleCommentChange}
+        onSubmit={this._handleSubmit}
       />;
     }
   }
 
   WithReview.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    activeMovieId: PropTypes.number.isRequired
+    movie: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired
   };
 
   const mapStateToProps = (state) => ({
-    activeMovieId: getActiveMovieId(state),
+    movie: getActiveMovie(state),
   });
 
   const mapDispatchToProps = (dispatch) => ({

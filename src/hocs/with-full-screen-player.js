@@ -2,7 +2,8 @@ import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import {getPromoMovie} from "../reducer/data/selectors.js";
+import {getSelectedMovie} from "../reducer/state/selectors.js";
+import {Time} from "../consts";
 
 const withFullScreenPlayer = (Component) => {
   class WithFullScreenPlayer extends PureComponent {
@@ -51,6 +52,7 @@ const withFullScreenPlayer = (Component) => {
         video.onplay = null;
         video.onpause = null;
         video.ontimeupdate = null;
+        video.controls = false;
       }
     }
 
@@ -113,21 +115,38 @@ const withFullScreenPlayer = (Component) => {
     _handleFullScreenSet() {
       const video = this._videoRef.current;
 
-      if (video) {
+      if (video.webkitEnterFullScreen) {
+        video.webkitEnterFullScreen();
+      } else {
         video.requestFullscreen();
+        video.controls = true;
       }
+    }
+
+    _getElapsedTime() {
+      const {progress, duration} = this.state;
+
+      const difference = duration - progress;
+
+      const hours = Math.trunc(difference / Time.SECONDS_IN_HOUR);
+      const minutes = Math.trunc(difference / Time.SECONDS_IN_MINUTE);
+      const seconds = Math.trunc(difference % Time.SECONDS_IN_MINUTE);
+
+      return `${hours}:${minutes}:${seconds}`;
     }
 
     render() {
       const {isPlaying, progress, duration} = this.state;
-      const {movie: {preview, background}} = this.props;
+      const {movie: {title, preview, background}} = this.props;
 
       return (
         <Component
           {...this.props}
+          title={title}
           isPlaying={isPlaying}
           progress={progress}
           duration={duration}
+          elapsedTime={this._getElapsedTime()}
           onPlayButtonClick={this._handlePlayButtonClick}
           onFullScreenButtonClick={this._handleFullScreenSet}
         >
@@ -136,7 +155,9 @@ const withFullScreenPlayer = (Component) => {
             className="player__video"
             src={preview}
             poster={background}
-          />
+          >
+            <source src={preview}/>
+          </video>
         </Component>
       );
     }
@@ -144,13 +165,14 @@ const withFullScreenPlayer = (Component) => {
 
   WithFullScreenPlayer.propTypes = {
     movie: PropTypes.shape({
+      title: PropTypes.string.isRequired,
       preview: PropTypes.string.isRequired,
       background: PropTypes.string.isRequired,
     }).isRequired,
   };
 
-  const mapStateToProps = (state) => ({
-    movie: getPromoMovie(state),
+  const mapStateToProps = (state, props) => ({
+    movie: getSelectedMovie(state, props.id),
   });
 
   return connect(mapStateToProps)(WithFullScreenPlayer);

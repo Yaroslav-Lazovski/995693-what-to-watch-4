@@ -2,7 +2,9 @@ import React from "react";
 import renderer from "react-test-renderer";
 import configureStore from "redux-mock-store";
 import {Provider} from "react-redux";
+import {Router} from "react-router-dom";
 
+import history from "../../history";
 import {MoviesList} from "./movies-list.jsx";
 
 import NameSpace from "../../reducer/name-space";
@@ -26,17 +28,19 @@ describe(`MoviesList Snapshot`, () => {
 
     const tree = renderer
     .create(
-        <Provider store={store}>
-          <MoviesList
-            movies={movies}
-            genre={GENRES.ALL}
-            showedMoviesNumber={8}
-            onTitleClick={() => {}}
-            onPosterClick={() => {}}
-            onMouseEnter={() => {}}
-            onMouseLeave={() => {}}
-          />
-        </Provider>, {
+        <Router
+          history={history}
+        >
+          <Provider store={store}>
+            <MoviesList
+              movies={movies}
+              genre={GENRES.ALL}
+              showedMoviesNumber={8}
+              onMouseEnter={() => {}}
+              onMouseLeave={() => {}}
+            />
+          </Provider>
+        </Router>, {
           createNodeMock: ()=>{
             return {};
           }
