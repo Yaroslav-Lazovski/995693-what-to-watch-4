@@ -1,10 +1,11 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import React from "react";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
-import {getAuthorizationStatus} from '../../reducer/user/selectors';
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
 
-import {AuthorizationStatus} from '../../consts';
+import {AuthorizationStatus, AppRoute} from "../../consts";
 
 export const Header = (props) => {
   const {authorizationStatus} = props;
@@ -19,18 +20,18 @@ export const Header = (props) => {
     }
 
     return (
-      <a href="sign-in.html" className="user-block__link">Sign in</a>
+      <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>
     );
   };
 
   return (
     <header className="page-header movie-card__head">
       <div className="logo">
-        <a className="logo__link">
+        <Link to={AppRoute.ROOT} className="logo__link">
           <span className="logo__letter logo__letter--1">W</span>
           <span className="logo__letter logo__letter--2">T</span>
           <span className="logo__letter logo__letter--3">W</span>
-        </a>
+        </Link>
       </div>
       <div className="user-block">
         {renderUserBlock()}

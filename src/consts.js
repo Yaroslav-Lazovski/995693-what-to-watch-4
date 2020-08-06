@@ -1,3 +1,5 @@
+export const MAX_SIMILAR_MOVIES = 4;
+
 export const MOVIE_TITLES = [
   `Fantastic Beasts: The Crimes of Grindelwald`,
   `Bohemian Rhapsody`,
@@ -60,3 +62,29 @@ export const AuthorizationStatus = {
 };
 
 export const MAX_MOVIES_IN_LIST = 8;
+
+export const AppRoute = {
+  ADD_REVIEW: `/review`,
+  FILM: `/films`,
+  LOGIN: `/login`,
+  MY_LIST: `/mylist`,
+  PLAYER: `/player`,
+  ROOT: `/`
+};
+
+export const dateOptions = {
+  year: `numeric`,
+  month: `long`,
+  day: `numeric`
+};
+
+export const dateInnerOptions = {
+  year: `numeric`,
+  month: `numeric`,
+  day: `numeric`
+};
+
+export const Time = {
+  SECONDS_IN_MINUTE: 60,
+  SECONDS_IN_HOUR: 3600
+};

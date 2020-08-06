@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import {getFormatRating, getFormatDate, getFormatInnerDate} from "../../utils";
+import {dateOptions, dateInnerOptions} from "../../consts";
+
 
 const MovieReview = (props) => {
   const {review: {user: {name}, date, rating, comment}} = props;
@@ -11,10 +14,12 @@ const MovieReview = (props) => {
         <p className="review__text">{comment}</p>
         <footer className="review__details">
           <cite className="review__author">{name}</cite>
-          <time className="review__date" dateTime={date}>{date}</time>
+          <time className="review__date" dateTime={getFormatInnerDate(date, dateInnerOptions)}>
+            {getFormatDate(date, dateOptions)}
+          </time>
         </footer>
       </blockquote>
-      <div className="review__rating">{rating}</div>
+      <div className="review__rating">{getFormatRating(rating)}</div>
     </div>
   );
 };

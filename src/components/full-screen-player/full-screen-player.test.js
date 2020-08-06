@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import {FullScreenPlayer} from "./full-screen-player.jsx";
+import FullScreenPlayer from "./full-screen-player.jsx";
 
 const mockState = {
   isPlaying: false,
@@ -9,9 +9,7 @@ const mockState = {
   duration: 0,
 };
 
-const movie = {
-  title: `The Grand Budapest Hotel`,
-};
+const title = `The Grand Budapest Hotel`;
 
 
 it(`Should FullScreenPlayer render correctly`, () => {
@@ -23,7 +21,7 @@ it(`Should FullScreenPlayer render correctly`, () => {
           isPlaying={isPlaying}
           progress={progress}
           duration={duration}
-          movie={movie}
+          title={title}
           onFullScreenButtonClick={() => {}}
           onFullScreenToggle={() => {}}
           onPlayButtonClick={() => {}}

@@ -1,25 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
 
-import {ActionCreator} from "../../reducer/state/state.js";
-import {getMovies} from "../../reducer/data/selectors.js";
+import history from "../../history";
 
 
 export const FullScreenPlayer = (props) => {
-  const {isPlaying, progress, duration, movie: {title}, children, onFullScreenToggle, onPlayButtonClick, onFullScreenButtonClick} = props;
+  const {isPlaying, progress, duration, title, children, elapsedTime, onPlayButtonClick, onFullScreenButtonClick} = props;
 
   return (
     <div className="player">
       {children}
-      <button onClick={onFullScreenToggle} type="button" className="player__exit">Exit</button>
+      <button onClick={() => history.goBack()} type="button" className="player__exit">Exit</button>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value={progress} max={duration}/>
             <div className="player__toggler" style={{left: ((progress / duration) * 100) + `%`}}>Toggler</div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{elapsedTime}</div>
         </div>
         <div className="player__controls-row">
           <button onClick={onPlayButtonClick} type="button" className="player__play">
@@ -57,22 +55,10 @@ FullScreenPlayer.propTypes = {
   duration: PropTypes.number.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onFullScreenButtonClick: PropTypes.func.isRequired,
-  onFullScreenToggle: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
-  movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-  }).isRequired,
+  title: PropTypes.string.isRequired,
+  elapsedTime: PropTypes.string.isRequired
 };
 
 
-const mapStateToProps = (state) => ({
-  movie: getMovies(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onFullScreenToggle() {
-    dispatch(ActionCreator.setFullScreenPlayer(false));
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FullScreenPlayer);
+export default FullScreenPlayer;

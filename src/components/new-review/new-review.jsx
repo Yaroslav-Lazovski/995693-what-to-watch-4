@@ -1,8 +1,11 @@
 import React, {Fragment} from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 import {getSelectedMovie} from "../../reducer/state/selectors.js";
+import {getErrorStatus, getFormState} from "../../reducer/data/selectors.js";
+import {AppRoute} from "../../consts.js";
 
 const ReviewLength = {
   MIN: 50,
@@ -13,22 +16,23 @@ const RATING_COUNT = 5;
 
 
 export const NewReview = (props) => {
-  const {movie: {title, background, poster}, onChangeHandler, onSubmitHandler} = props;
+  const {movie: {id, title, background, poster}, rating, isFormDisabled, isErrorLoading, onRatingChange, onCommentChange, onSubmit} = props;
 
   const getRatingItem = (item, index) => {
-    const id = `star-${index + 1}`;
+    const key = `star-${index + 1}`;
 
     return (
-      <Fragment key={item + id}>
+      <Fragment key={key}>
         <input
-          onChange={onChangeHandler}
+          onChange={onRatingChange}
           className="rating__input"
-          id={id}
+          id={key}
           type="radio"
           name="rating"
-          value={index}
+          value={index + 1}
+          disabled={isFormDisabled}
         />
-        <label className="rating__label" htmlFor={id}>Rating {index}</label>
+        <label className="rating__label" htmlFor={key}>Rating {index}</label>
       </Fragment>
     );
   };
@@ -37,25 +41,31 @@ export const NewReview = (props) => {
 
   const renderRatingMarkup = () => ratingStars.map(getRatingItem);
 
+  const getErrorMessage = () => {
+    return isErrorLoading ? (
+      <p style={{color: `red`, textAlign: `center`}}>Sending error. Please, try again.</p>
+    ) : null;
+  };
+
   return (
     <section className="movie-card movie-card--full">
       <div className="movie-card__header">
         <div className="movie-card__bg">
-          <img src={background} alt={name}/>
+          <img src={background} alt={title}/>
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <Link to={AppRoute.ROOT} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="movie-page.html" className="breadcrumbs__link">{title}</a>
+                <Link to={`${AppRoute.FILM}/${id}`} className="breadcrumbs__link">{title}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -73,7 +83,8 @@ export const NewReview = (props) => {
         </div>
       </div>
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <p style={{color: `red`, textAlign: `center`}}>{getErrorMessage()}</p>
+        <form onSubmit={onSubmit} action="#" className="add-review__form">
           <div className="rating">
             <div className="rating__stars">
               {renderRatingMarkup()}
@@ -81,7 +92,7 @@ export const NewReview = (props) => {
           </div>
           <div className="add-review__text">
             <textarea
-              onChange={onSubmitHandler}
+              onChange={onCommentChange}
               className="add-review__textarea"
               name="review-text"
               id="review-text"
@@ -89,9 +100,15 @@ export const NewReview = (props) => {
               minLength={ReviewLength.MIN}
               maxLength={ReviewLength.MAX}
               required
+              disabled={isFormDisabled}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
+              <button
+                className="add-review__btn"
+                type="submit"
+                disabled={isFormDisabled || (rating === 0)}>
+              Post
+              </button>
             </div>
           </div>
         </form>
@@ -102,16 +119,23 @@ export const NewReview = (props) => {
 
 NewReview.propTypes = {
   movie: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired
   }).isRequired,
-  onChangeHandler: PropTypes.func.isRequired,
-  onSubmitHandler: PropTypes.func.isRequired
+  onRatingChange: PropTypes.func.isRequired,
+  onCommentChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  isFormDisabled: PropTypes.bool.isRequired,
+  isErrorLoading: PropTypes.bool.isRequired,
+  rating: PropTypes.number.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  movie: getSelectedMovie(state)
+const mapStateToProps = (state, props) => ({
+  movie: getSelectedMovie(state, props.id),
+  isErrorLoading: getErrorStatus(state),
+  isFormDisabled: getFormState(state)
 });
 
 export default connect(mapStateToProps)(NewReview);
