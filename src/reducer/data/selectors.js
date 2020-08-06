@@ -9,12 +9,12 @@ export const getAllGenres = (state) => getGenresList(state[NameSpace.DATA].movie
 
 export const getComments = (state) => state[NameSpace.DATA].reviews;
 
-export const getFormState = (state) => state[NameSpace.STATE].isFormDisabled;
+export const getFormState = (state) => state[NameSpace.DATA].isFormDisabled;
 
-export const getLoadingMoviesState = (state) => state[NameSpace.STATE].isLoadingMovies;
+export const getLoadingMoviesState = (state) => state[NameSpace.DATA].isLoadingMovies;
 
-export const getLoadingPromoMovieState = (state) => state[NameSpace.STATE].isLoadingPromoMovie;
+export const getLoadingPromoMovieState = (state) => state[NameSpace.DATA].isLoadingPromoMovie;
 
-export const getLoadingCommentsState = (state) => state[NameSpace.STATE].isLoadingComments;
+export const getLoadingCommentsState = (state) => state[NameSpace.DATA].isLoadingComments;
 
-export const getErrorStatus = (state) => state[NameSpace.STATE].isErrorLoading;
+export const getErrorStatus = (state) => state[NameSpace.DATA].isErrorLoading;

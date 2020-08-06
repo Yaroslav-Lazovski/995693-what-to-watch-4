@@ -2,7 +2,7 @@ import {MovieRating, RatingType} from "../src/consts.js";
 
 const MAX_NUMBER_GENRES = 10;
 
-export const getformatRating = (rating) => rating.toString().replace(`.`, `,`);
+export const getFormatRating = (rating) => rating.toString().replace(`.`, `,`);
 
 export const getRatingLevel = (rating) => {
   let textRating;

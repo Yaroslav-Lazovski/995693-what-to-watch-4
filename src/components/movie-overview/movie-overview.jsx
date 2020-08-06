@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {getformatRating, getRatingLevel} from "../../utils.js";
+import {getFormatRating, getRatingLevel} from "../../utils.js";
 
 const MovieOverview = (props) => {
   const {ratingScore, ratingCount, description, director, starring} = props;
@@ -9,7 +9,7 @@ const MovieOverview = (props) => {
   return (
     <React.Fragment>
       <div className="movie-rating">
-        <div className="movie-rating__score">{getformatRating(ratingScore)}</div>
+        <div className="movie-rating__score">{getFormatRating(ratingScore)}</div>
         <p className="movie-rating__meta">
           <span className="movie-rating__level">{getRatingLevel(ratingScore)}</span>
           <span className="movie-rating__count">{ratingCount} ratings</span>

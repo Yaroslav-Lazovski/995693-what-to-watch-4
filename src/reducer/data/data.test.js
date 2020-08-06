@@ -167,10 +167,10 @@ describe(`Operation work correctly`, () => {
   it(`Should make a correct API call to /movies`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const moviesLoader = Operation.loadFilms();
+    const moviesLoader = Operation.loadMovies();
 
     apiMock
-      .onGet(`/movies`)
+      .onGet(`/films`)
       .reply(200, [{fake: true}]);
 
     return moviesLoader(dispatch, () => {}, api)
@@ -221,7 +221,7 @@ describe(`Operation work correctly`, () => {
   it(`Should make a correct API call to /comments/id`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const commentsLoader = Operation.loadFilmComments(1);
+    const commentsLoader = Operation.loadMovieComments(1);
 
     apiMock
       .onGet(`/comments/1`)

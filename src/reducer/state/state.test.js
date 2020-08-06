@@ -103,8 +103,8 @@ describe(`Action creators work correctly`, ()=>{
     });
   });
 
-  it(`Action creator return action with active film`, () => {
-    expect(ActionCreator.getActiveFilm(movie)).toEqual({
+  it(`Action creator return action with active movie`, () => {
+    expect(ActionCreator.getActiveMovie(movie)).toEqual({
       type: ActionType.GET_ACTIVE_FILM,
       payload: movie,
     });
