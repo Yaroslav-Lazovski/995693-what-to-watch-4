@@ -11,8 +11,10 @@ exports[`SignIn component render correctly 1`] = `
       className="logo"
     >
       <a
+        Link={true}
         className="logo__link"
-        href="main.html"
+        href="/"
+        onClick={[Function]}
       >
         <span
           className="logo__letter logo__letter--1"

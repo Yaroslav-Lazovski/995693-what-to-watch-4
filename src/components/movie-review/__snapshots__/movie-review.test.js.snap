@@ -22,7 +22,7 @@ exports[`MovieReview Snapshot Should MovieReview render correctly 1`] = `
       </cite>
       <time
         className="review__date"
-        dateTime="December 24, 2016"
+        dateTime="2016-24-12"
       >
         December 24, 2016
       </time>
@@ -31,7 +31,7 @@ exports[`MovieReview Snapshot Should MovieReview render correctly 1`] = `
   <div
     className="review__rating"
   >
-    7.1
+    7,1
   </div>
 </div>
 `;

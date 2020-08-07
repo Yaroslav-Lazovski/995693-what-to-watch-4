@@ -1,5 +1,5 @@
 import React from "react";
-import Enzyme, {mount} from "enzyme";
+import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
 import SmallMovieCard from "./small-movie-card.jsx";
@@ -15,7 +15,7 @@ describe(`SmallMovieCard e2e tests`, () => {
   it(`Should movie card mouse leave`, () => {
     const onMouseLeave = jest.fn();
 
-    const movieCardComponent = mount(
+    const movieCardComponent = shallow(
         <SmallMovieCard
           movie={movieInfo}
           isPlaying={false}

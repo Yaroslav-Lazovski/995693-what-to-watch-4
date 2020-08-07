@@ -9,6 +9,8 @@ exports[`Header component render correctly 1`] = `
   >
     <a
       className="logo__link"
+      href="/"
+      onClick={[Function]}
     >
       <span
         className="logo__letter logo__letter--1"
@@ -32,7 +34,8 @@ exports[`Header component render correctly 1`] = `
   >
     <a
       className="user-block__link"
-      href="sign-in.html"
+      href="/login"
+      onClick={[Function]}
     >
       Sign in
     </a>

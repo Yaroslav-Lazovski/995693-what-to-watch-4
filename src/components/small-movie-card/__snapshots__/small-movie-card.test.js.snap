@@ -3,31 +3,35 @@
 exports[`SmallMovieCard Snapshot Should small movie card render correctly 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
-  onClick={[Function]}
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
-  <div
-    className="small-movie-card__image"
+  <a
+    href="/films/1"
+    onClick={[Function]}
   >
-    <video
-      className="player__video"
-      poster="img/oblivion.jpg"
-      src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-    />
-    <img
-      alt="Oblivion"
-      height="175"
-      src="img/oblivion.jpg"
-      width="280"
-    />
-  </div>
+    <div
+      className="small-movie-card__image"
+    >
+      <video
+        className="player__video"
+        poster="img/oblivion.jpg"
+        src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+      />
+      <img
+        alt="Oblivion"
+        height="175"
+        src="img/oblivion.jpg"
+        width="280"
+      />
+    </div>
+  </a>
   <h3
     className="small-movie-card__title"
   >
     <a
       className="small-movie-card__link"
-      href="movie-page.html"
+      href="/films/1"
       onClick={[Function]}
     >
       Oblivion

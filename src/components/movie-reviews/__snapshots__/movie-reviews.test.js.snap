@@ -2,81 +2,31 @@
 
 exports[`MovieReviews Snapshot Should MovieReviews render correctly 1`] = `
 <div
-  className="movie-card__reviews movie-card__row"
+  style={
+    Object {
+      "height": "200px",
+      "margin": "0 auto",
+      "width": "200px",
+    }
+  }
 >
-  <div
-    className="movie-card__reviews-col"
+  <svg
+    viewBox="0 0 100 100"
+    xmlns="http://www.w3.org/2000/svg"
   >
-    <div
-      className="review"
+    <path
+      d="M10 50a40 40 0 0080 0 40 42 0 01-80 0"
+      fill="#c9b37e"
     >
-      <blockquote
-        className="review__quote"
-      >
-        <p
-          className="review__text"
-        >
-          Comment
-        </p>
-        <footer
-          className="review__details"
-        >
-          <cite
-            className="review__author"
-          >
-            User
-          </cite>
-          <time
-            className="review__date"
-            dateTime="December 24, 2016"
-          >
-            December 24, 2016
-          </time>
-        </footer>
-      </blockquote>
-      <div
-        className="review__rating"
-      >
-        7.1
-      </div>
-    </div>
-  </div>
-  <div
-    className="movie-card__reviews-col"
-  >
-    <div
-      className="review"
-    >
-      <blockquote
-        className="review__quote"
-      >
-        <p
-          className="review__text"
-        >
-          Comment
-        </p>
-        <footer
-          className="review__details"
-        >
-          <cite
-            className="review__author"
-          >
-            User
-          </cite>
-          <time
-            className="review__date"
-            dateTime="December 24, 2016"
-          >
-            December 24, 2016
-          </time>
-        </footer>
-      </blockquote>
-      <div
-        className="review__rating"
-      >
-        7.1
-      </div>
-    </div>
-  </div>
+      <animateTransform
+        attributeName="transform"
+        dur="1s"
+        keyTimes="0;1"
+        repeatCount="indefinite"
+        type="rotate"
+        values="0 50 51;360 50 51"
+      />
+    </path>
+  </svg>
 </div>
 `;

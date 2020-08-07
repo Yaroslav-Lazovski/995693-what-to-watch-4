@@ -39,6 +39,7 @@ describe(`MovieReviews Snapshot`, () => {
         reviews={reviews}
         movie={movie}
         getMovieComments={() => {}}
+        isLoadingComments={true}
       />)
       .toJSON();
 
