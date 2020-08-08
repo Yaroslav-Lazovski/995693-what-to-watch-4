@@ -11,7 +11,7 @@ exports[`AddReview component render correctly 1`] = `
       className="movie-card__bg"
     >
       <img
-        alt=""
+        alt="The Grand Budapest Hotel"
         src="img/bg-the-grand-budapest-hotel.jpg"
       />
     </div>
@@ -28,7 +28,8 @@ exports[`AddReview component render correctly 1`] = `
       >
         <a
           className="logo__link"
-          href="main.html"
+          href="/"
+          onClick={[Function]}
         >
           <span
             className="logo__letter logo__letter--1"
@@ -58,7 +59,8 @@ exports[`AddReview component render correctly 1`] = `
           >
             <a
               className="breadcrumbs__link"
-              href="movie-page.html"
+              href="/films/1"
+              onClick={[Function]}
             >
               The Grand Budapest Hotel
             </a>
@@ -103,9 +105,18 @@ exports[`AddReview component render correctly 1`] = `
   <div
     className="add-review"
   >
+    <p
+      style={
+        Object {
+          "color": "red",
+          "textAlign": "center",
+        }
+      }
+    />
     <form
       action="#"
       className="add-review__form"
+      onSubmit={[Function]}
     >
       <div
         className="rating"
@@ -115,11 +126,12 @@ exports[`AddReview component render correctly 1`] = `
         >
           <input
             className="rating__input"
+            disabled={false}
             id="star-1"
             name="rating"
             onChange={[Function]}
             type="radio"
-            value={0}
+            value={1}
           />
           <label
             className="rating__label"
@@ -130,11 +142,12 @@ exports[`AddReview component render correctly 1`] = `
           </label>
           <input
             className="rating__input"
+            disabled={false}
             id="star-2"
             name="rating"
             onChange={[Function]}
             type="radio"
-            value={1}
+            value={2}
           />
           <label
             className="rating__label"
@@ -145,11 +158,12 @@ exports[`AddReview component render correctly 1`] = `
           </label>
           <input
             className="rating__input"
+            disabled={false}
             id="star-3"
             name="rating"
             onChange={[Function]}
             type="radio"
-            value={2}
+            value={3}
           />
           <label
             className="rating__label"
@@ -160,11 +174,12 @@ exports[`AddReview component render correctly 1`] = `
           </label>
           <input
             className="rating__input"
+            disabled={false}
             id="star-4"
             name="rating"
             onChange={[Function]}
             type="radio"
-            value={3}
+            value={4}
           />
           <label
             className="rating__label"
@@ -175,11 +190,12 @@ exports[`AddReview component render correctly 1`] = `
           </label>
           <input
             className="rating__input"
+            disabled={false}
             id="star-5"
             name="rating"
             onChange={[Function]}
             type="radio"
-            value={4}
+            value={5}
           />
           <label
             className="rating__label"
@@ -195,6 +211,7 @@ exports[`AddReview component render correctly 1`] = `
       >
         <textarea
           className="add-review__textarea"
+          disabled={false}
           id="review-text"
           maxLength={400}
           minLength={50}
@@ -208,6 +225,7 @@ exports[`AddReview component render correctly 1`] = `
         >
           <button
             className="add-review__btn"
+            disabled={true}
             type="submit"
           >
             Post

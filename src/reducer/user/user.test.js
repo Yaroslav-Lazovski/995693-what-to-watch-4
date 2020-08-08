@@ -81,36 +81,10 @@ describe(`Operation work correctly`, () => {
 
     return checkAuth(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.REQUIRED_AUTHORIZATION,
-          payload: `AUTH`,
-        });
-      });
-  });
-
-  it(`Should make a correct send to /login`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const login = Operation.login({
-      email: `test@esample.com`,
-      password: `12345678`,
-    });
-
-    apiMock
-      .onPost(`/login`)
-      .reply(200, [{fake: true}]);
-
-    return login(dispatch, () => {}, api)
-      .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REQUIRED_AUTHORIZATION,
           payload: `AUTH`,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.CHECK_ERROR_AUTHORIZATION,
-          payload: false,
         });
       });
   });

@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 import withVideoPlayer from "../../hocs/with-video-player.js";
 
-import {getFilteredMovies, getShowedMovies} from "../../reducer/state/selectors.js";
+import {getShowedMovies} from "../../reducer/state/selectors.js";
 
 const SmallMovieCardWrapper = withVideoPlayer(SmallMovieCard);
 
@@ -49,7 +49,6 @@ MoviesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  movies: getFilteredMovies(state),
   showedMoviesNumber: getShowedMovies(state),
 });
 

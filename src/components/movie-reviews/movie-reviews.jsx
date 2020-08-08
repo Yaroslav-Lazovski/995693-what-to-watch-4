@@ -39,7 +39,7 @@ export class MovieReviews extends PureComponent {
     );
   }
 
-  renderReviews(columnReviews) {
+  _renderReviews(columnReviews) {
     return columnReviews.map(this._getReview);
   }
 

@@ -11,9 +11,10 @@ import Header from "../header/header.jsx";
 import withActiveCard from "../../hocs/with-active-card.js";
 
 import {ActionCreator} from "../../reducer/state/state";
-import {getSelectedMovie, getSimilarMovies} from "../../reducer/state/selectors.js";
+import {getSelectedMovie} from "../../reducer/state/selectors.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
-import {AppRoute, TabType, AuthorizationStatus} from "../../consts.js";
+import {getMovies} from "../../reducer/data/selectors.js";
+import {AppRoute, TabType, AuthorizationStatus, MAX_SIMILAR_MOVIES} from "../../consts.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 
@@ -73,34 +74,26 @@ export class MoviePage extends PureComponent {
     }
   }
 
-  _renderSimilarMovies() {
-    const {movies} = this.props;
-
-    return movies.length > 0 ? (
-      <section className="catalog catalog--like-this">
-        <h2 className="catalog__title">More like this</h2>
-        <MoviesListWrapped
-          movies={movies}
-        />
-      </section>
-    ) : null;
+  _getSimilarMovies(movies, genre) {
+    return movies.filter((movie) => movie.genre === genre).slice(0, MAX_SIMILAR_MOVIES);
   }
 
   render() {
     const {movie: {id, background, title, genre, year, posterBig}, renderTabs, authorizationStatus} = this.props;
+    const similarMovies = this._getSimilarMovies(this.props.movies, genre);
 
     return (
       <Fragment>
         <section className="movie-card movie-card--full">
           <div className="movie-card__hero">
             <div className="movie-card__bg">
-              <img src={background} alt={name}/>
+              <img src={background} alt={title}/>
             </div>
             <h1 className="visually-hidden">WTW</h1>
             <Header />
             <div className="movie-card__wrap">
               <div className="movie-card__desc">
-                <h2 className="movie-card__title">{name}</h2>
+                <h2 className="movie-card__title">{title}</h2>
                 <p className="movie-card__meta">
                   <span className="movie-card__genre">{genre}</span>
                   <span className="movie-card__year">{year}</span>
@@ -136,7 +129,12 @@ export class MoviePage extends PureComponent {
           </div>
         </section>
         <div className="page-content">
-          {this._renderSimilarMovies()}
+          <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
+            <MoviesListWrapped
+              movies={similarMovies}
+            />
+          </section>
           <footer className="page-footer">
             <div className="logo">
               <a href="main.html" className="logo__link logo__link--light">
@@ -190,7 +188,7 @@ MoviePage.propTypes = {
 
 const mapStateToProps = (state, props) => ({
   movie: getSelectedMovie(state, props.id),
-  movies: getSimilarMovies(state),
+  movies: getMovies(state),
   authorizationStatus: getAuthorizationStatus(state)
 });
 

@@ -164,64 +164,10 @@ describe(`Reducer work correctly`, () => {
 });
 
 describe(`Operation work correctly`, () => {
-  it(`Should make a correct API call to /movies`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const moviesLoader = Operation.loadFilms();
-
-    apiMock
-      .onGet(`/movies`)
-      .reply(200, [{fake: true}]);
-
-    return moviesLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOADING_MOVIES,
-          payload: true,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.LOAD_MOVIES,
-          payload: [{fake: true}],
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(3, {
-          type: ActionType.LOADING_MOVIES,
-          payload: false,
-        });
-      });
-  });
-
-  it(`Should make a correct API call to /movies/promo`, () => {
-    const apiMock = new MockAdapter(api);
-    const dispatch = jest.fn();
-    const promoMovieLoader = Operation.loadPromoMovie();
-
-    apiMock
-      .onGet(`/movies/promo`)
-      .reply(200, [{fake: true}]);
-
-    return promoMovieLoader(dispatch, () => {}, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOADING_PROMO_MOVIE,
-          payload: true,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.LOAD_PROMO_MOVIE,
-          payload: [{fake: true}],
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(3, {
-          type: ActionType.LOADING_PROMO_MOVIE,
-          payload: false,
-        });
-      });
-  });
-
   it(`Should make a correct API call to /comments/id`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
-    const commentsLoader = Operation.loadFilmComments(1);
+    const commentsLoader = Operation.loadMovieComments(1);
 
     apiMock
       .onGet(`/comments/1`)
