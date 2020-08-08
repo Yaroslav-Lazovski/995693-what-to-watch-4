@@ -53,7 +53,7 @@ const withReview = (Component) => {
 
       return <Component
         {...this.props}
-        rating={rating}
+        rating={+rating}
         onRatingChange={this._handleRatingChange}
         onCommentChange={this._handleCommentChange}
         onSubmit={this._handleSubmit}

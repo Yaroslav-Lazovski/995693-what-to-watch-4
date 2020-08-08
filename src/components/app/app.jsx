@@ -9,6 +9,7 @@ import SignIn from "../sign-in/sign-in.jsx";
 import NewReview from "../new-review/new-review.jsx";
 import PrivateRoute from "../private-route/private-route.jsx";
 import Preloader from "../preloader/preloader.jsx";
+import MyList from "../my-list/my-list.jsx";
 import FullScreenPlayer from "../full-screen-player/full-screen-player.jsx";
 import withTabs from "../../hocs/with-tabs.js";
 import withReview from "../../hocs/with-review.js";
@@ -55,6 +56,7 @@ export const App = (props) => {
 
           return <NewReviewWrapped id={id} />;
         }}/>
+        <PrivateRoute exact path={AppRoute.MY_LIST} render={() => <MyList />} />
       </Switch>
     </Router>
   );

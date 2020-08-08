@@ -8,9 +8,11 @@ const initialState = {
   movies: [],
   promoMovie: {},
   reviews: [],
+  favoriteMovies: [],
+  isLoadingFavoriteMovie: false,
   isFormDisabled: false,
-  isLoadingMovies: false,
-  isLoadingPromoMovie: false,
+  isLoadingMovies: true,
+  isLoadingPromoMovie: true,
   isLoadingComments: false,
   isErrorLoading: false,
 };
@@ -23,7 +25,9 @@ const ActionType = {
   LOADING_MOVIES: `LOADING_MOVIES`,
   LOADING_PROMO_MOVIE: `LOADING_PROMO_MOVIE`,
   LOADING_COMMENTS: `LOADING_COMMENTS`,
-  GET_ERROR_STATUS: `GET_ERROR_STATUS`
+  GET_ERROR_STATUS: `GET_ERROR_STATUS`,
+  LOAD_FAVORITE_MOVIES: `LOAD_FAVORITE_MOVIES`,
+  LOADING_FAVORITE_MOVIE: `LOADING_FAVORITE_MOVIE`,
 };
 
 const ActionCreator = {
@@ -40,6 +44,16 @@ const ActionCreator = {
       payload: promoMovie
     };
   },
+
+  loadFavoriteMovies: (movies) => ({
+    type: ActionType.LOAD_FAVORITE_MOVIES,
+    payload: movies
+  }),
+
+  loadingFavoriteMovie: (bool) => ({
+    type: ActionType.LOADING_FAVORITE_MOVIE,
+    payload: bool
+  }),
 
   loadMovieComments: (comments) => {
     return {
@@ -76,27 +90,31 @@ const ActionCreator = {
 
 const Operation = {
   loadMovies: () => (dispatch, getState, api) => {
-    dispatch(ActionCreator.loadingMovies(true));
     return api.get(`/films`)
       .then((response) => {
         dispatch(ActionCreator.loadMovies(moviesAdapter(response.data)));
         dispatch(ActionCreator.loadingMovies(false));
+        dispatch(ActionCreator.getErrorStatus(false));
       })
       .catch((err) => {
         dispatch(ActionCreator.loadingMovies(false));
+        dispatch(ActionCreator.getErrorStatus(true));
         throw err;
       });
   },
 
   loadPromoMovie: () => (dispatch, getState, api) => {
-    dispatch(ActionCreator.loadingPromoMovie(true));
     return api.get(`/films/promo`)
       .then((response) => {
         dispatch(ActionCreator.loadPromoMovie(movieAdapter(response.data)));
         dispatch(ActionCreator.loadingPromoMovie(false));
+        dispatch(ActionCreator.getErrorStatus(false));
+
       })
       .catch((err) => {
         dispatch(ActionCreator.loadingPromoMovie(false));
+        dispatch(ActionCreator.getErrorStatus(true));
+
         throw err;
       });
   },
@@ -107,9 +125,11 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.loadMovieComments(response.data));
         dispatch(ActionCreator.loadingComments(false));
+        dispatch(ActionCreator.getErrorStatus(false));
       })
       .catch((err) => {
         dispatch(ActionCreator.loadingComments(false));
+        dispatch(ActionCreator.getErrorStatus(true));
         throw err;
       });
   },
@@ -131,7 +151,37 @@ const Operation = {
 
         throw err;
       });
-  }
+  },
+
+  loadFavoriteMovies: () => (dispatch, getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        dispatch(ActionCreator.loadFavoriteMovies(moviesAdapter(response.data)));
+        dispatch(ActionCreator.getErrorStatus(false));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.getErrorStatus(true));
+
+        throw err;
+      });
+  },
+
+  postFavoriteMovie: (id, isFavorite) => (dispatch, getState, api) => {
+    const status = isFavorite ? 1 : 0;
+    dispatch(ActionCreator.loadingFavoriteMovie(true));
+
+    return api.post(`/favorite/${id}/${status}`)
+      .then(() => {
+        dispatch(ActionCreator.getErrorStatus(false));
+        dispatch(ActionCreator.loadingFavoriteMovie(false));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.getErrorStatus(true));
+        dispatch(ActionCreator.loadingFavoriteMovie(false));
+
+        throw err;
+      });
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -149,6 +199,15 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_MOVIE_COMMENTS:
       return extend(state, {
         reviews: action.payload
+      });
+
+    case ActionType.LOAD_FAVORITE_MOVIES:
+      return extend(state, {
+        favoriteMovies: action.payload,
+      });
+    case ActionType.LOADING_FAVORITE_MOVIE:
+      return extend(state, {
+        isLoadingFavoriteMovie: action.payload,
       });
 
     case ActionType.SET_FORM_DISABLED:

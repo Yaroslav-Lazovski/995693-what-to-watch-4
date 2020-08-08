@@ -66,9 +66,11 @@ describe(`Reducer work correctly`, () => {
       movies: [],
       promoMovie: {},
       reviews: [],
+      favoriteMovies: [],
+      isLoadingFavoriteMovie: false,
+      isLoadingMovies: true,
+      isLoadingPromoMovie: true,
       isFormDisabled: false,
-      isLoadingMovies: false,
-      isLoadingPromoMovie: false,
       isLoadingComments: false,
       isErrorLoading: false,
     });
@@ -175,7 +177,7 @@ describe(`Operation work correctly`, () => {
 
     return commentsLoader(dispatch, () => {}, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
+        expect(dispatch).toHaveBeenCalledTimes(4);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOADING_COMMENTS,
           payload: true,

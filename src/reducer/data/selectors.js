@@ -18,3 +18,7 @@ export const getLoadingPromoMovieState = (state) => state[NameSpace.DATA].isLoad
 export const getLoadingCommentsState = (state) => state[NameSpace.DATA].isLoadingComments;
 
 export const getErrorStatus = (state) => state[NameSpace.DATA].isErrorLoading;
+
+export const getFavoriteMovies = (state) => state[NameSpace.DATA].favoriteMovies;
+
+export const getLoadingFavoriteMovie = (state) => state[NameSpace.DATA].isLoadingFavoriteMovie;
