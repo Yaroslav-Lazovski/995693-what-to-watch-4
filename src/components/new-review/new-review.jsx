@@ -16,7 +16,7 @@ const RATING_COUNT = 5;
 
 
 export const NewReview = (props) => {
-  const {movie: {id, title, background, poster}, rating, isFormDisabled, isErrorLoading, onRatingChange, onCommentChange, onSubmit} = props;
+  const {movie: {id, title, background, posterBig}, rating, isFormDisabled, isErrorLoading, onRatingChange, onCommentChange, onSubmit} = props;
 
   const getRatingItem = (item, index) => {
     const key = `star-${index + 1}`;
@@ -65,7 +65,7 @@ export const NewReview = (props) => {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={`${AppRoute.FILM}/${id}`} className="breadcrumbs__link">{title}</Link>
+                <Link to={`${AppRoute.FILM}/${id}`} className="breadcrumbs__link">{name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -74,12 +74,12 @@ export const NewReview = (props) => {
           </nav>
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              <img src="/img/avatar.jpg" alt="User avatar" width="63" height="63"/>
             </div>
           </div>
         </header>
         <div className="movie-card__poster movie-card__poster--small">
-          <img src={poster} alt={`${title} poster`} width="218" height="327"/>
+          <img src={posterBig} alt={`${title} posterBig`} width="218" height="327"/>
         </div>
       </div>
       <div className="add-review">
@@ -122,7 +122,7 @@ NewReview.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired
+    posterBig: PropTypes.string.isRequired
   }).isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onCommentChange: PropTypes.func.isRequired,

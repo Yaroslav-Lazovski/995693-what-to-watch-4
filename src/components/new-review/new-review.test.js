@@ -10,7 +10,7 @@ const movie = {
   id: 1,
   title: `The Grand Budapest Hotel`,
   background: `img/bg-the-grand-budapest-hotel.jpg`,
-  poster: `img/the-grand-budapest-hotel-poster.jpg`
+  posterBig: `img/the-grand-budapest-hotel-poster.jpg`
 };
 
 it(`AddReview component render correctly`, () => {

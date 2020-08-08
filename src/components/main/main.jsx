@@ -7,10 +7,13 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 import Header from "../header/header.jsx";
+import Footer from "../footer/footer.jsx";
+import AddMyList from "../add-my-list/add-my-list.jsx";
 import withActiveCard from "../../hocs/with-active-card.js";
 
 import {ActionCreator} from "../../reducer/state/state.js";
-import {getPromoMovie} from "../../reducer/data/selectors";
+import {getPromoMovie, getLoadingFavoriteMovie} from "../../reducer/data/selectors";
+import {Operation as DataOperation} from '../../reducer/data/data';
 import {getShowedMovies, getFilteredMovies} from "../../reducer/state/selectors.js";
 import {AppRoute} from "../../consts";
 
@@ -24,8 +27,12 @@ export class Main extends PureComponent {
 
 
   render() {
-    const {movie: {id, year, title, genre, background, posterBig}, movies, showedMoviesNumber, onShowMoreButtonClick} = this.props;
+    const {movie: {id, year, title, genre, background, posterBig, isFavorite}, movies, showedMoviesNumber, onShowMoreButtonClick, isLoadingFavoriteMovie, loadPromoMovie} = this.props;
     const showedMovies = movies.slice(0, showedMoviesNumber);
+
+    if (isLoadingFavoriteMovie) {
+      loadPromoMovie();
+    }
 
     return (
       (<React.Fragment>
@@ -58,12 +65,10 @@ export class Main extends PureComponent {
                     </svg>
                     <span>Play</span>
                   </Link>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
-                    </svg>
-                    <span>My list</span>
-                  </button>
+                  <AddMyList
+                    id={id}
+                    isFavorite={isFavorite}
+                  />
                 </div>
               </div>
             </div>
@@ -85,19 +90,7 @@ export class Main extends PureComponent {
             />}
           </section>
 
-          <footer className="page-footer">
-            <div className="logo">
-              <a className="logo__link logo__link--light">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="copyright">
-              <p>© 2019 What to watch Ltd.</p>
-            </div>
-          </footer>
+          <Footer />
         </div>
       </React.Fragment>)
     );
@@ -113,6 +106,7 @@ Main.propTypes = {
     genre: PropTypes.string.isRequired,
     background: PropTypes.string.isRequired,
     posterBig: PropTypes.string.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
   }).isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
@@ -123,12 +117,15 @@ Main.propTypes = {
   ).isRequired,
   showedMoviesNumber: PropTypes.number.isRequired,
   onShowMoreButtonClick: PropTypes.func.isRequired,
+  isLoadingFavoriteMovie: PropTypes.bool.isRequired,
+  loadPromoMovie: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   movie: getPromoMovie(state),
   movies: getFilteredMovies(state),
   showedMoviesNumber: getShowedMovies(state),
+  isLoadingFavoriteMovie: getLoadingFavoriteMovie(state)
 });
 
 
@@ -136,6 +133,10 @@ const mapDispatchToProps = (dispatch) => ({
   onShowMoreButtonClick() {
     dispatch(ActionCreator.showMoreMovies());
   },
+
+  loadPromoMovie() {
+    dispatch(DataOperation.loadPromoMovie());
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

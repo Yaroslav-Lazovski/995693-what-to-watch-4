@@ -62,7 +62,7 @@ exports[`AddReview component render correctly 1`] = `
               href="/films/1"
               onClick={[Function]}
             >
-              The Grand Budapest Hotel
+              
             </a>
           </li>
           <li
@@ -85,7 +85,7 @@ exports[`AddReview component render correctly 1`] = `
           <img
             alt="User avatar"
             height="63"
-            src="img/avatar.jpg"
+            src="/img/avatar.jpg"
             width="63"
           />
         </div>
@@ -95,7 +95,7 @@ exports[`AddReview component render correctly 1`] = `
       className="movie-card__poster movie-card__poster--small"
     >
       <img
-        alt="The Grand Budapest Hotel poster"
+        alt="The Grand Budapest Hotel posterBig"
         height="327"
         src="img/the-grand-budapest-hotel-poster.jpg"
         width="218"

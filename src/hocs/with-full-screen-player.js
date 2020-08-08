@@ -28,10 +28,10 @@ const withFullScreenPlayer = (Component) => {
 
     componentDidMount() {
       const video = this._videoRef.current;
-      const {movie: {preview}} = this.props;
+      const {movie: {src}} = this.props;
 
       if (video) {
-        video.src = preview;
+        video.src = src;
 
         video.play();
 
@@ -137,7 +137,7 @@ const withFullScreenPlayer = (Component) => {
 
     render() {
       const {isPlaying, progress, duration} = this.state;
-      const {movie: {title, preview, background}} = this.props;
+      const {movie: {title, src, background}} = this.props;
 
       return (
         <Component
@@ -153,10 +153,10 @@ const withFullScreenPlayer = (Component) => {
           <video
             ref={this._videoRef}
             className="player__video"
-            src={preview}
+            src={src}
             poster={background}
           >
-            <source src={preview}/>
+            <source src={src}/>
           </video>
         </Component>
       );
@@ -166,7 +166,7 @@ const withFullScreenPlayer = (Component) => {
   WithFullScreenPlayer.propTypes = {
     movie: PropTypes.shape({
       title: PropTypes.string.isRequired,
-      preview: PropTypes.string.isRequired,
+      src: PropTypes.string.isRequired,
       background: PropTypes.string.isRequired,
     }).isRequired,
   };

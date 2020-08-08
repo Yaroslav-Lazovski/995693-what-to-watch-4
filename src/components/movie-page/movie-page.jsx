@@ -8,12 +8,16 @@ import MovieOverview from "../movie-overview/movie-overview.jsx";
 import MovieDetails from "../movie-details/movie-details.jsx";
 import MovieReviews from "../movie-reviews/movie-reviews.jsx";
 import Header from "../header/header.jsx";
+import Footer from "../footer/footer.jsx";
+import AddMyList from "../add-my-list/add-my-list.jsx";
 import withActiveCard from "../../hocs/with-active-card.js";
 
 import {ActionCreator} from "../../reducer/state/state";
 import {getSelectedMovie} from "../../reducer/state/selectors.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {getMovies} from "../../reducer/data/selectors.js";
+import {getLoadingFavoriteMovie} from '../../reducer/data/selectors';
+import {Operation as DataOperation} from '../../reducer/data/data';
 import {AppRoute, TabType, AuthorizationStatus, MAX_SIMILAR_MOVIES} from "../../consts.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
@@ -39,8 +43,8 @@ export class MoviePage extends PureComponent {
   }
 
   _renderAddReviewButton(status, id) {
-    return status === AuthorizationStatus.AUTH ?
-      <Link to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>
+    return status === AuthorizationStatus.AUTH
+      ? <Link to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>
       : null;
   }
 
@@ -79,8 +83,12 @@ export class MoviePage extends PureComponent {
   }
 
   render() {
-    const {movie: {id, background, title, genre, year, posterBig}, renderTabs, authorizationStatus} = this.props;
+    const {movie: {id, background, title, genre, year, posterBig, isFavorite}, renderTabs, authorizationStatus, isLoadingFavoriteMovie, loadMovies} = this.props;
     const similarMovies = this._getSimilarMovies(this.props.movies, genre);
+
+    if (isLoadingFavoriteMovie) {
+      loadMovies();
+    }
 
     return (
       <Fragment>
@@ -105,12 +113,10 @@ export class MoviePage extends PureComponent {
                     </svg>
                     <span>Play</span>
                   </Link>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"/>
-                    </svg>
-                    <span>My list</span>
-                  </button>
+                  <AddMyList
+                    id={id}
+                    isFavorite={isFavorite}
+                  />
                   {this._renderAddReviewButton(authorizationStatus, id)}
                 </div>
               </div>
@@ -135,19 +141,7 @@ export class MoviePage extends PureComponent {
               movies={similarMovies}
             />
           </section>
-          <footer className="page-footer">
-            <div className="logo">
-              <a href="main.html" className="logo__link logo__link--light">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            <div className="copyright">
-              <p>© 2019 What to watch Ltd.</p>
-            </div>
-          </footer>
+          <Footer />
         </div>
       </Fragment>
     );
@@ -171,6 +165,7 @@ MoviePage.propTypes = {
     starring: PropTypes.arrayOf(
         PropTypes.string.isRequired
     ).isRequired,
+    isFavorite: PropTypes.bool.isRequired,
     runTime: PropTypes.number.isRequired,
   }),
   movies: PropTypes.arrayOf(
@@ -183,18 +178,25 @@ MoviePage.propTypes = {
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
   authorizationStatus: PropTypes.string.isRequired,
-  setActiveMovie: PropTypes.func.isRequired
+  setActiveMovie: PropTypes.func.isRequired,
+  isLoadingFavoriteMovie: PropTypes.bool.isRequired,
+  loadMovies: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, props) => ({
   movie: getSelectedMovie(state, props.id),
   movies: getMovies(state),
-  authorizationStatus: getAuthorizationStatus(state)
+  authorizationStatus: getAuthorizationStatus(state),
+  isLoadingFavoriteMovie: getLoadingFavoriteMovie(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setActiveMovie(movie) {
     dispatch(ActionCreator.getActiveMovie(movie));
+  },
+
+  loadMovies() {
+    dispatch(DataOperation.loadMovies());
   }
 });
 

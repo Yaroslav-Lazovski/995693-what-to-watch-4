@@ -25,7 +25,8 @@ const movie = {
   description: `Movie description`,
   director: `Movie director`,
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
-  runTime: 120
+  runTime: 120,
+  isFavorite: false
 };
 
 
@@ -62,6 +63,8 @@ describe(`MoviePage Snapshot`, () => {
               authorizationStatus={AuthorizationStatus.NO_AUTH}
               renderTabs={() => {}}
               setActiveMovie={() => {}}
+              isLoadingFavoriteMovie={false}
+              loadMovies={() => {}}
             />
           </Provider>
         </Router>, {

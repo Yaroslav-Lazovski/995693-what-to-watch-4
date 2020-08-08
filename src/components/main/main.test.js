@@ -42,6 +42,8 @@ describe(`Main Snapshot`, () => {
                 movies={movies}
                 showedMoviesNumber={8}
                 onShowMoreButtonClick={() => {}}
+                isLoadingFavoriteMovie={false}
+                loadPromoMovie={() => {}}
               />)
             </Provider>
           </Router>, {
