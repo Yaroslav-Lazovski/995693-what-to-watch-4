@@ -17,7 +17,7 @@ import withFullScreenPlayer from "../../hocs/with-full-screen-player";
 
 import {getLoadingMoviesState, getLoadingPromoMovieState} from "../../reducer/data/selectors";
 import history from "../../history";
-import {AppRoute} from '../../consts';
+import {AppRoute} from "../../consts";
 
 
 const MoviePageWrapped = withTabs(MoviePage);
@@ -69,7 +69,7 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   isLoadingMovies: getLoadingMoviesState(state),
-  isLoadingPromoMovie: getLoadingPromoMovieState(state)
+  isLoadingPromoMovie: getLoadingPromoMovieState(state),
 });
 
 

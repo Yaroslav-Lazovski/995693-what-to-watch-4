@@ -25,6 +25,7 @@ it(`Sign in submit click`, () => {
   const signIn = mount(
       <SignIn
         onSubmit={submitHandler}
+        authorizationStatus={`NO_AUTH`}
         isErrorAuth={false}
       />
   );

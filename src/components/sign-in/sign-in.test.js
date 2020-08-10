@@ -11,6 +11,7 @@ it(`SignIn component render correctly`, () => {
         history={history}
       >
         <SignIn
+          authorizationStatus={`AUTH`}
           onSubmit={() => {}}
           isErrorAuth={true}
         />

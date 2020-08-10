@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
@@ -9,51 +9,43 @@ import {getCurrentGenre} from "../../reducer/state/selectors.js";
 
 const MAX_NUMBER_GENRES = 10;
 
-export class GenresList extends PureComponent {
-  constructor(props) {
-    super(props);
 
-    this.getGenresList = this.getGenresList.bind(this);
-  }
+export const GenresList = (props) => {
+  const {genre, onClick} = props;
 
-  getGenresList() {
+  const getGenresList = () => {
     const genres = new Set();
 
     genres.add(`All genres`);
 
-    this.props.movies.forEach((movie) => {
+    props.movies.forEach((movie) => {
       genres.add(movie.genre);
     });
 
-    const genresList = Array.from(genres).slice(0, MAX_NUMBER_GENRES);
-    return genresList;
-  }
+    return Array.from(genres).slice(0, MAX_NUMBER_GENRES);
+  };
 
-  render() {
-    const {genre, onClick} = this.props;
-    const genresList = this.getGenresList();
+  const genresList = getGenresList();
 
-    return (
-      <ul className="catalog__genres-list">
-        {genresList.map((genreItem) => {
-          const activeClass = genre === genreItem ? `catalog__genres-item--active` : ``;
+  return (
+    <ul className="catalog__genres-list">
+      {genresList.map((genreItem) => {
+        const activeClass = genre === genreItem ? `catalog__genres-item--active` : ``;
 
-          return <li
-            key={genreItem}
-            className={`catalog__genres-item ${activeClass}`}
-            onClick={(evt)=>{
-              evt.preventDefault();
-              onClick(genreItem);
-            }}
-          >
-            <a href="#" className="catalog__genres-link">{genreItem}</a>
-          </li>;
-        })}
-      </ul>
-    );
-  }
-
-}
+        return <li
+          key={genreItem}
+          className={`catalog__genres-item ${activeClass}`}
+          onClick={(evt)=>{
+            evt.preventDefault();
+            onClick(genreItem);
+          }}
+        >
+          <a href="#" className="catalog__genres-link">{genreItem}</a>
+        </li>;
+      })}
+    </ul>
+  );
+};
 
 
 GenresList.propTypes = {

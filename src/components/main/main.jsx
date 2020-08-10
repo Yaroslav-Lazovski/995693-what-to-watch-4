@@ -1,4 +1,4 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
@@ -20,82 +20,76 @@ import {AppRoute} from "../../consts";
 const MoviesListWrapped = withActiveCard(MoviesList);
 
 
-export class Main extends PureComponent {
-  constructor(props) {
-    super(props);
+export const Main = (props) => {
+  const {movie: {id, year, title, genre, background, posterBig, isFavorite}, movies, showedMoviesNumber, onShowMoreButtonClick, isLoadingFavoriteMovie, loadPromoMovie} = props;
+  const showedMovies = movies.slice(0, showedMoviesNumber);
+
+
+  if (isLoadingFavoriteMovie) {
+    loadPromoMovie();
   }
 
+  return (
+    (<React.Fragment>
+      <section className="movie-card">
+        <div className="movie-card__bg">
+          <img src={background} alt={title} />
+        </div>
 
-  render() {
-    const {movie: {id, year, title, genre, background, posterBig, isFavorite}, movies, showedMoviesNumber, onShowMoreButtonClick, isLoadingFavoriteMovie, loadPromoMovie} = this.props;
-    const showedMovies = movies.slice(0, showedMoviesNumber);
+        <h1 className="visually-hidden">WTW</h1>
 
-    if (isLoadingFavoriteMovie) {
-      loadPromoMovie();
-    }
+        <Header />
 
-    return (
-      (<React.Fragment>
-        <section className="movie-card">
-          <div className="movie-card__bg">
-            <img src={background} alt={title} />
-          </div>
+        <div className="movie-card__wrap">
+          <div className="movie-card__info">
+            <div className="movie-card__poster">
+              <img src={posterBig} alt={title} width="218" height="327" />
+            </div>
 
-          <h1 className="visually-hidden">WTW</h1>
+            <div className="movie-card__desc">
+              <h2 className="movie-card__title">{title}</h2>
+              <p className="movie-card__meta">
+                <span className="movie-card__genre">{genre}</span>
+                <span className="movie-card__year">{year}</span>
+              </p>
 
-          <Header />
-
-          <div className="movie-card__wrap">
-            <div className="movie-card__info">
-              <div className="movie-card__poster">
-                <img src={posterBig} alt={title} width="218" height="327" />
-              </div>
-
-              <div className="movie-card__desc">
-                <h2 className="movie-card__title">{title}</h2>
-                <p className="movie-card__meta">
-                  <span className="movie-card__genre">{genre}</span>
-                  <span className="movie-card__year">{year}</span>
-                </p>
-
-                <div className="movie-card__buttons">
-                  <Link to={`${AppRoute.PLAYER}/${id}`} className="btn btn--play movie-card__button" type="button">
-                    <svg viewBox="0 0 19 19" width="19" height="19">
-                      <use xlinkHref="#play-s"></use>
-                    </svg>
-                    <span>Play</span>
-                  </Link>
-                  <AddMyList
-                    id={id}
-                    isFavorite={isFavorite}
-                  />
-                </div>
+              <div className="movie-card__buttons">
+                <Link to={`${AppRoute.PLAYER}/${id}`} className="btn btn--play movie-card__button" type="button">
+                  <svg viewBox="0 0 19 19" width="19" height="19">
+                    <use xlinkHref="#play-s"></use>
+                  </svg>
+                  <span>Play</span>
+                </Link>
+                <AddMyList
+                  id={id}
+                  isFavorite={isFavorite}
+                />
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <div className="page-content">
+        <section className="catalog">
+          <h2 className="catalog__title visually-hidden">Catalog</h2>
+
+          <GenresList />
+
+          <MoviesListWrapped
+            movies={showedMovies}
+          />
+
+          {showedMoviesNumber < movies.length && <ShowMore
+            onShowMoreButtonClick={onShowMoreButtonClick}
+          />}
         </section>
 
-        <div className="page-content">
-          <section className="catalog">
-            <h2 className="catalog__title visually-hidden">Catalog</h2>
-
-            <GenresList />
-
-            <MoviesListWrapped
-              movies={showedMovies}
-            />
-
-            {showedMoviesNumber < movies.length && <ShowMore
-              onShowMoreButtonClick={onShowMoreButtonClick}
-            />}
-          </section>
-
-          <Footer />
-        </div>
-      </React.Fragment>)
-    );
-  }
-}
+        <Footer />
+      </div>
+    </React.Fragment>)
+  );
+};
 
 
 Main.propTypes = {

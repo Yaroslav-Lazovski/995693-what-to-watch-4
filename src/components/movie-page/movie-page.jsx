@@ -18,7 +18,7 @@ import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {getMovies} from "../../reducer/data/selectors.js";
 import {getLoadingFavoriteMovie} from '../../reducer/data/selectors';
 import {Operation as DataOperation} from '../../reducer/data/data';
-import {AppRoute, TabType, AuthorizationStatus, MAX_SIMILAR_MOVIES} from "../../consts.js";
+import {AppRoute, TabType, MAX_SIMILAR_MOVIES} from "../../consts.js";
 
 const MoviesListWrapped = withActiveCard(MoviesList);
 
@@ -40,12 +40,6 @@ export class MoviePage extends PureComponent {
     const {movie, setActiveMovie} = this.props;
 
     setActiveMovie(movie);
-  }
-
-  _renderAddReviewButton(status, id) {
-    return status === AuthorizationStatus.AUTH
-      ? <Link to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`} className="btn movie-card__button">Add review</Link>
-      : null;
   }
 
   _renderActiveTab() {
@@ -83,7 +77,7 @@ export class MoviePage extends PureComponent {
   }
 
   render() {
-    const {movie: {id, background, title, genre, year, posterBig, isFavorite}, renderTabs, authorizationStatus, isLoadingFavoriteMovie, loadMovies} = this.props;
+    const {movie: {id, background, title, genre, year, posterBig, isFavorite}, renderTabs, isLoadingFavoriteMovie, loadMovies} = this.props;
     const similarMovies = this._getSimilarMovies(this.props.movies, genre);
 
     if (isLoadingFavoriteMovie) {
@@ -117,7 +111,11 @@ export class MoviePage extends PureComponent {
                     id={id}
                     isFavorite={isFavorite}
                   />
-                  {this._renderAddReviewButton(authorizationStatus, id)}
+                  <Link
+                    to={`${AppRoute.FILM}/${id}${AppRoute.ADD_REVIEW}`}
+                    className="btn movie-card__button">
+                    Add review
+                  </Link>
                 </div>
               </div>
             </div>
@@ -177,7 +175,6 @@ MoviePage.propTypes = {
   ).isRequired,
   renderTabs: PropTypes.func.isRequired,
   activeTab: PropTypes.string.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
   setActiveMovie: PropTypes.func.isRequired,
   isLoadingFavoriteMovie: PropTypes.bool.isRequired,
   loadMovies: PropTypes.func.isRequired

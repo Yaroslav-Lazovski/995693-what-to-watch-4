@@ -64,7 +64,7 @@ MyList.propTypes = {
   loadFavoriteMovies: PropTypes.func.isRequired,
   movies: PropTypes.arrayOf(
       PropTypes.shape({
-        // title: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
         genre: PropTypes.string.isRequired,
         runTime: PropTypes.number.isRequired,
         year: PropTypes.number.isRequired,
