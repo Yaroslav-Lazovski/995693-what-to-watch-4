@@ -16,8 +16,9 @@ import withReview from "../../hocs/with-review.js";
 import withFullScreenPlayer from "../../hocs/with-full-screen-player";
 
 import {getLoadingMoviesState, getLoadingPromoMovieState} from "../../reducer/data/selectors";
+import {getAuthorizationStatus} from "../../reducer/user/selectors";
 import history from "../../history";
-import {AppRoute} from "../../consts";
+import {AppRoute, AuthorizationStatus} from "../../consts";
 
 
 const MoviePageWrapped = withTabs(MoviePage);
@@ -26,7 +27,7 @@ const FullScreenPlayerWrapped = withFullScreenPlayer(FullScreenPlayer);
 
 
 export const App = (props) => {
-  const {isLoadingMovies, isLoadingPromoMovie} = props;
+  const {isLoadingMovies, isLoadingPromoMovie, authorizationStatus} = props;
 
   if (isLoadingMovies || isLoadingPromoMovie) {
     return <Preloader />;
@@ -38,8 +39,9 @@ export const App = (props) => {
         <Route exact path={AppRoute.ROOT}>
           <Main />
         </Route>
-        <Route exact path={AppRoute.LOGIN}>
-          <SignIn />
+        <Route exact path={AppRoute.LOGIN} render={() => {
+          return authorizationStatus === AuthorizationStatus.NO_AUTH ? <SignIn /> : <Main />;
+        }}>
         </Route>
         <Route exact path={`${AppRoute.FILM}/:id`} render={(routeProps) => {
           const id = Number(routeProps.match.params.id);
@@ -64,12 +66,14 @@ export const App = (props) => {
 
 App.propTypes = {
   isLoadingMovies: PropTypes.bool.isRequired,
-  isLoadingPromoMovie: PropTypes.bool.isRequired
+  isLoadingPromoMovie: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   isLoadingMovies: getLoadingMoviesState(state),
   isLoadingPromoMovie: getLoadingPromoMovieState(state),
+  authorizationStatus: getAuthorizationStatus(state)
 });
 
 
